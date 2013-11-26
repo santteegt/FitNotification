@@ -1,0 +1,168 @@
+package com.fitnotif.notification;
+
+import com.fitnotif.common.NotificationException;
+import com.fitnotif.parser.NotificationParser;
+import com.fitnotif.parser.XMLHelper;
+import java.util.ArrayList;
+import java.util.List;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+/**
+ * Clase que representa una Notificacion
+ * @author malgia
+ * @version 1.0
+ */
+public class Notification extends Request{
+
+    
+    private List<Page> pages;
+    private List<Option> options;
+    
+<<<<<<< .mine
+    public Notification(){
+        
+    }
+    public Notification(NotificationParser nr) throws Exception{
+=======
+    /**
+     * Constructor de la clase
+     */
+    public Notification(){
+    }
+    
+    /**
+     * Constructor de la clase
+     * @param nr
+     * @throws Exception 
+     */
+    public Notification(NotificationParser nr){
+>>>>>>> .r12
+          Node node = nr.getChildByName("HEADER");
+          super.fill(node);
+          this.fillDetail(nr);
+          this.fillOptions(nr);
+    }
+
+    /**
+     * Método que recibe un archivo XML y lo transforma en Notification
+     * @param nr
+     * @throws Exception 
+     */
+    private void fillDetail(NotificationParser nr){
+        Node detailNode = nr.getChildByName("DETAIL");
+        NodeList pageNodes = nr.getChildrenByName(detailNode, "PAGE");
+        this.pages=new ArrayList<Page>();
+        if(pageNodes!=null){
+            for(int i=0; i< pageNodes.getLength(); i++){
+                Node pageNode=pageNodes.item(i);
+                Page page=new Page(pageNode);
+                this.addPage(page);
+            }
+        }
+    }
+    
+    /**
+     * Permite agregar Pages en una Notificacion
+     * @param page 
+     */
+    public void addPage(Page page){
+        this.pages.add(page);
+    }  
+
+    /**
+     * Métodoq que pone en el objeto las opciones de respuesta para una notificación
+     * @param nr 
+     */
+    private void fillOptions(NotificationParser nr){
+        Node optionsNode = nr.getChildByName("OPTIONS");
+        NodeList optionsList = nr.getChildrenByName(optionsNode, "OP");
+        this.options=new ArrayList<Option>();
+        if (optionsList != null) {
+            for (int i = 0; i < optionsList.getLength(); i++) {
+                Node n = optionsList.item(i);
+                Option op=new Option();
+                op.setId(n.getAttributes().getNamedItem("id").getNodeValue());
+                op.setDescription(n.getAttributes().getNamedItem("desc").getNodeValue());
+                if(n.getAttributes().getNamedItem("ans").getNodeValue().compareTo("1")==0){
+                    op.setAnswer(true);
+                }
+                this.options.add(op);
+            }
+        }
+    }
+   
+    /**
+     * Método que convierte el objeto Notification en un archivo XML
+     * @return
+     * @throws Exception 
+     */
+    public String toXml() throws Exception {
+        return XMLHelper.nodeToString(this.createNotification());
+    }
+
+    /**
+     * Método usado por toXml()
+     * @return 
+     */
+    private Node createNotification(){
+        Node newNotification = XMLHelper.createNode("AUTORIZATION");
+        XMLHelper.appendChild(newNotification, super.getHeaderNode());
+        XMLHelper.appendChild(newNotification, this.toNode());
+        XMLHelper.appendChild(newNotification, this.OptionstoNode());
+        return newNotification;
+    }    
+    
+    /**
+     * Método que permite agregar Pages al archivo XML
+     * @return
+     * @throws Exception 
+     */
+    private Node toNode(){
+        Node detailNode = XMLHelper.createNode("DETAIL");
+        for (Page page : this.getPages()) {
+            try {
+                XMLHelper.appendChild(detailNode, page.toNode());
+            } catch (Exception ex) {
+                throw new NotificationException("ERRXML", "NO SE PUDO AGREGAR EL PAGE {0}", ex, page.getId());
+            }
+        }
+        return detailNode;
+    }
+    
+    /**
+     * Método que permite agregar las opciones de respuesta al archivo XML
+     * @return
+     * @throws Exception 
+     */
+    private Node OptionstoNode(){
+        Node optionNode = XMLHelper.createNode("OPTIONS");
+        for (Option op : this.getOptions()) {
+            try {
+                XMLHelper.appendChild(optionNode, op.toNode());
+            } catch (Exception ex) {
+                throw new NotificationException("ERRXML", "NO SE PUDO AGREGAR LA OPCIÓN {0}", ex, op.getId());
+            }
+        }
+        return optionNode;
+    }    
+    
+    public List<Page> getPages() {
+        return pages;
+    }
+
+    public void setPages(List<Page> pages) {
+        this.pages = pages;
+    }
+    
+    
+    
+    public List<Option> getOptions(){
+        return this.options;
+    }
+    
+    public void setOptions(List<Option> options){
+        this.options=options;
+    }
+    
+}

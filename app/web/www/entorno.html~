@@ -1,0 +1,284 @@
+<!DOCTYPE html> 
+<!-- include("Ingresar"); -->
+<html> 
+<head> 
+	<!-- <title>FitNotification-Mobile</title> -->	
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+
+	<link rel="stylesheet" href="css/jquery.mobile-1.0.min.css" />
+	<link rel="stylesheet" href="css/custom.css" />
+	<script type="text/javascript" src="javascript/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="javascript/jquery.mobile-1.0.min.js"></script>
+        <script type="text/javascript" src="javascript/include.js"></script>
+</head> 
+
+<body> 
+	<div data-role="page" id="entorno" data-title="FitNotification-Mobile"> 
+		<div data-role="header" class="barra">                                        
+                    <img src="css/images/logo.png"/>
+                    <span >FitNotification</span>			
+                    <a href="opciones.html" data-icon="grid" class="ui-btn-right">Salir</a>			
+		</div>
+		<div data-role="content">
+                    <div class="barra" id="titulo">Bienvenido</div>
+                    <form method="POST" action="http://192.168.4.112:8084/Notifmobile/proc/" autocomplete="off">
+                        <div data-role="fieldcontain" class="ui-hide-label">
+                            <div data-role="collapsible-set">
+                                <div data-role="collapsible" data-theme="a" data-content-theme="a" id="prestamos">
+                                    <h3><span class="auth-count">Prestamos</span>
+                                        <span id="count" class="count-item ui-li-count ui-btn-up-c ui-btn-corner-all">3</span>                                        
+                                    </h3>
+                                    
+                                    <ul data-role="listview" data-inset="true" data-theme="c">
+                                        <li id="token1"><a href="index.html">
+                                            <p class="ui-li-aside ui-li-desc">Fecha:<strong>01/01/2012 6:24</strong></p>
+                                            <h3 class="ui-li-heading">Autorizacion X a tal Persona</h3>
+                                            <p class="ui-li-desc">Pequenio resumen de la autorizacion</p>
+                                            </a>
+                                        </li>
+                                        <li id="token2"><a href="index.html">
+                                            <p class="ui-li-aside ui-li-desc">Fecha:<strong>01/01/2012 6:24</strong></p>
+                                            <h3 class="ui-li-heading">Autorizacion X a tal Persona</h3>
+                                            <p class="ui-li-desc">Pequenio resumen de la autorizacion</p>
+                                            </a>
+                                        </li>	
+					
+					<li id="token2"><a href="index.html">
+                                            <p class="ui-li-aside ui-li-desc">Fecha:<strong>01/01/2012 6:24</strong></p>
+                                            <h3 class="ui-li-heading">Autorizacion X a tal Persona</h3>
+                                            <p class="ui-li-desc">Pequenio resumen de la autorizacion</p>
+                                            </a>
+                                        </li>
+
+					<li id="token2"><a href="index.html">
+                                            <p class="ui-li-aside ui-li-desc">Fecha:<strong>01/01/2012 6:24</strong></p>
+                                            <h3 class="ui-li-heading">Autorizacion X a tal Persona</h3>
+                                            <p class="ui-li-desc">Pequenio resumen de la autorizacion</p>
+                                            </a>
+                                        </li>
+
+					<li id="token2"><a href="index.html">
+                                            <p class="ui-li-aside ui-li-desc">Fecha:<strong>01/01/2012 6:24</strong></p>
+                                            <h3 class="ui-li-heading">Autorizacion X a tal Persona</h3>
+                                            <p class="ui-li-desc">Pequenio resumen de la autorizacion</p>
+                                            </a>
+                                        </li>		
+
+                                    </ul>
+                                </div>
+                                
+                                <div data-role="collapsible" data-theme="a" data-theme="a" data-content-theme="a" id="vista">
+                                    <h3><span class="auth-count">Vista</span>
+                                        <span id="count" class="count-item ui-li-count ui-btn-up-c ui-btn-corner-all">3</span>                                        
+                                    </h3>
+                                    <ul data-role="listview" data-inset="true" data-theme="c">
+                                        <li id="token3"><a href="index.html">
+                                            <p class="ui-li-aside ui-li-desc">Fecha:<strong>01/01/2012 6:24</strong></p>
+                                            <h3 class="ui-li-heading">Autorizacion X a tal Persona</h3>
+                                            <p class="ui-li-desc">Pequenio resumen de la autorizacion</p>
+                                            </a>
+                                        </li>
+                                        <li id="token4"><a href="index.html">
+                                            <p class="ui-li-aside ui-li-desc">Fecha:<strong>01/01/2012 6:24</strong></p>
+                                            <h3 class="ui-li-heading">Autorizacion X a tal Persona</h3>
+                                            <p class="ui-li-desc">Pequenio resumen de la autorizacion</p>
+                                            </a>
+                                        </li>			
+
+                                    </ul>
+                                </div>
+                                
+                                <div data-role="collapsible" data-theme="a" data-theme="a" data-content-theme="a" id="vista">
+                                    <h3><span class="auth-count">Vista</span>
+                                        <span id="count" class="count-item ui-li-count ui-btn-up-c ui-btn-corner-all">3</span>                                        
+                                    </h3>
+                                    <ul data-role="listview" data-inset="true" data-theme="c">
+                                        <li id="token3"><a href="index.html">
+                                            <p class="ui-li-aside ui-li-desc">Fecha:<strong>01/01/2012 6:24</strong></p>
+                                            <h3 class="ui-li-heading">Autorizacion X a tal Persona</h3>
+                                            <p class="ui-li-desc">Pequenio resumen de la autorizacion</p>
+                                            </a>
+                                        </li>
+                                        <li id="token4"><a href="index.html">
+                                            <p class="ui-li-aside ui-li-desc">Fecha:<strong>01/01/2012 6:24</strong></p>
+                                            <h3 class="ui-li-heading">Autorizacion X a tal Persona</h3>
+                                            <p class="ui-li-desc">Pequenio resumen de la autorizacion</p>
+                                            </a>
+                                        </li>			
+
+                                    </ul>
+                                </div>
+
+				<div data-role="collapsible" data-theme="a" data-theme="a" data-content-theme="a" id="vista">
+                                    <h3><span class="auth-count">Vista</span>
+                                        <span id="count" class="count-item ui-li-count ui-btn-up-c ui-btn-corner-all">3</span>                                        
+                                    </h3>
+                                    <ul data-role="listview" data-inset="true" data-theme="c">
+                                        <li id="token3"><a href="index.html">
+                                            <p class="ui-li-aside ui-li-desc">Fecha:<strong>01/01/2012 6:24</strong></p>
+                                            <h3 class="ui-li-heading">Autorizacion X a tal Persona</h3>
+                                            <p class="ui-li-desc">Pequenio resumen de la autorizacion</p>
+                                            </a>
+                                        </li>
+                                        <li id="token4"><a href="index.html">
+                                            <p class="ui-li-aside ui-li-desc">Fecha:<strong>01/01/2012 6:24</strong></p>
+                                            <h3 class="ui-li-heading">Autorizacion X a tal Persona</h3>
+                                            <p class="ui-li-desc">Pequenio resumen de la autorizacion</p>
+                                            </a>
+                                        </li>			
+
+                                    </ul>
+                                </div>
+
+				<div data-role="collapsible" data-theme="a" data-theme="a" data-content-theme="a" id="vista">
+                                    <h3><span class="auth-count">Vista</span>
+                                        <span id="count" class="count-item ui-li-count ui-btn-up-c ui-btn-corner-all">3</span>                                        
+                                    </h3>
+                                    <ul data-role="listview" data-inset="true" data-theme="c">
+                                        <li id="token3"><a href="index.html">
+                                            <p class="ui-li-aside ui-li-desc">Fecha:<strong>01/01/2012 6:24</strong></p>
+                                            <h3 class="ui-li-heading">Autorizacion X a tal Persona</h3>
+                                            <p class="ui-li-desc">Pequenio resumen de la autorizacion</p>
+                                            </a>
+                                        </li>
+                                        <li id="token4"><a href="index.html">
+                                            <p class="ui-li-aside ui-li-desc">Fecha:<strong>01/01/2012 6:24</strong></p>
+                                            <h3 class="ui-li-heading">Autorizacion X a tal Persona</h3>
+                                            <p class="ui-li-desc">Pequenio resumen de la autorizacion</p>
+                                            </a>
+                                        </li>			
+
+                                    </ul>
+                                </div>
+                                
+                            </div>
+                        </div>                        
+                    </form>
+		</div> 
+		<div data-role="footer" >
+                    <div data-role="navbar">
+                        <ul>
+                            <li><a href="#autorizacion" id="autorizacion-btn" data-icon="check" data-iconpos="top" class="ui-disabled">Autorizacion</a></li>
+                            <li><a href="opciones.html" id="opciones-btn" data-icon="gear" data-iconpos="top">Opciones</a></li>                                
+                        </ul>
+                    </div>
+		</div> 
+	</div>
+    
+        <div data-role="page" id="consolidado" data-title="FitNotification-Mobile" data-dom-cache="true">
+            <div data-role="header"  class="barra">
+                <a href="#entorno" data-icon="home" data-iconpos="notext">Principal</a>                
+                <img src="css/images/logo.png"/>
+                <span >FitNotification</span>			
+                <a href="opciones.html" data-icon="grid" >Salir</a>			
+
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#consolidado" data-transition="fade" id="consolidado-btn" class="ui-btn-active">Consolidado</a></li>                                
+                        <li><a href="#movimientos" data-transition="fade" id="movimientos-btn">Movimientos</a></li>
+                        <li><a href="#documentos" data-transition="fade" id="documentos-btn">Documentos</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div data-role="content">
+                <h1>PRUEBA</h1>
+            </div>
+            <div data-role="footer">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#autorizacion" id="autorizacion-btn" data-icon="check" data-iconpos="top">Autorizacion</a></li>
+                        <li><a href="opciones.html" id="opciones-btn" data-icon="gear" data-iconpos="top">Opciones</a></li>                                
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    
+        <div data-role="page" id="movimientos" data-title="FitNotification-Mobile" data-dom-cache="true">
+            <div data-role="header" class="barra">                
+                <a href="#entorno" data-icon="home" data-iconpos="notext">Principal</a>                
+                <img src="css/images/logo.png"/>
+                <span >FitNotification</span>			
+                <a href="opciones.html" data-icon="grid" >Salir</a>			
+
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#consolidado" data-transition="fade" id="consolidado-btn">Consolidado</a></li>                                
+                        <li><a href="#movimientos" data-transition="fade" id="movimientos-btn" class="ui-btn-active">Movimientos</a></li>
+                        <li><a href="#documentos" data-transition="fade" id="documentos-btn">Documentos</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div data-role="content">
+                <h1>PRUEBA</h1>
+            </div>
+            <div data-role="footer">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#autorizacion" id="autorizacion-btn" data-icon="check" data-iconpos="top">Autorizacion</a></li>
+                        <li><a href="opciones.html" id="opciones-btn" data-icon="gear" data-iconpos="top">Opciones</a></li>                                
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    
+        <div data-role="page" id="documentos" data-title="FitNotification-Mobile" data-dom-cache="true">
+            <div data-role="header" class="barra">
+                <a href="#entorno" data-icon="home" data-iconpos="notext">Principal</a>                
+                <img src="css/images/logo.png"/>
+                <span >FitNotification</span>			
+                <a href="opciones.html" data-icon="grid" >Salir</a>			
+
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#consolidado" data-transition="fade" id="consolidado-btn">Consolidado</a></li>                                
+                        <li><a href="#movimientos" data-transition="fade" id="movimientos-btn">Movimientos</a></li>
+                        <li><a href="#documentos" data-transition="fade" id="documentos-btn" class="ui-btn-active">Documentos</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div data-role="content">
+                
+            </div>
+            <div data-role="footer">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#autorizacion" id="autorizacion-btn" data-icon="check" data-iconpos="top">Autorizacion</a></li>
+                        <li><a href="opciones.html" id="opciones-btn" data-icon="gear" data-iconpos="top">Opciones</a></li>                                
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    
+        <div data-role="page" id="autorizacion" data-title="FitNotification-Mobile" data-dom-cache="true">
+            <div data-role="header" class="barra">
+                <a href="#entorno" data-icon="home" data-iconpos="notext">Principal</a>                
+                <img src="css/images/logo.png"/>
+                <span >FitNotification</span>			
+                <a href="opciones.html" data-icon="grid" >Salir</a>			
+
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#consolidado" data-transition="fade" id="consolidado-btn">Consolidado</a></li>                                
+                        <li><a href="#movimientos" data-transition="fade" id="movimientos-btn">Movimientos</a></li>
+                        <li><a href="#documentos" data-transition="fade" id="documentos-btn">Documentos</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div data-role="content">
+                
+            </div>
+            <div data-role="footer">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#autorizacion" id="autorizacion-btn" data-icon="check" data-iconpos="top"  class="ui-btn-active">Autorizacion</a></li>
+                        <li><a href="opciones.html" id="opciones-btn" data-icon="gear" data-iconpos="top">Opciones</a></li>                                
+                    </ul>
+                </div>                
+            </div>
+        </div>
+
+</body>
+</html>

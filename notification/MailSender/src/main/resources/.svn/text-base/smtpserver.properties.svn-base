@@ -1,0 +1,7 @@
+server.host=smtp.gmail.com
+server.port=465
+server.ssl=javax.net.ssl.SSLSocketFactory
+server.auth=true
+server.user=omalgia@gmail.com
+server.password=Oscar13589
+

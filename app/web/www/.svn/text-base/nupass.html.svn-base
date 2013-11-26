@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+	<!-- <title>FitNotification-Mobile</title> -->	
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <meta charset="UTF-8">
+	<link rel="stylesheet" href="css/jquery.mobile-1.0.1.min.css" />
+	<link rel="stylesheet" href="css/custom.css" />        
+	<script type="text/javascript" src="javascript/jquery-1.7.1.min.js"></script>        
+	<script type="text/javascript" src="javascript/jquery.mobile-1.0.1.own.min.js"></script>        
+        <script type="text/javascript" src="javascript/util.js"></script>
+</head> 
+
+<body> 
+    <div data-role="page" id="contrasena" data-title="FitNotification-Mobile"> 
+        <div data-role="header" class="barra">
+
+                <img src="css/images/fitlogo.png"/>
+                <span >FitNotification</span>			
+
+        </div>
+        <div data-role="content">
+            <div class="barra" id="titulo">Nueva Contrase&ntilde;a</div>
+            <form id="nupass" action="" autocomplete="off"  data-ajax="false">
+                <div data-role="fieldcontain">
+                    <label for="textp1">Contrase&ntilde;a</label>
+                    <input id="textp1" type="password" name="password" value="" />
+                    <label for="textp2">Nueva Contrase&ntilde;a</label>
+                    <input id="textp2" type="password" name="nupass" value="" />
+                    <label for="textp3">Confirmar Contrase&ntilde;a</label>
+                    <input id="textp3" type="password" name="cnupass" value="" />
+                    <label for="textp4">Token Seguridad</label>
+                    <input id="textp4" name="ctoken" value="" />
+                </div>
+                <div class="barra" >
+                    <button id="submit" type="submit" data-role="button" data-inline="true">Confirmar</button>
+                </div>    
+            </form>                    
+        </div> 
+        <div id="status" data-role="footer" class="footer-bottom status status-bar-ok">
+            <span>Bantec Inc.</span>                    
+        </div> 
+    </div>
+    <script>
+        var ip;
+        $(document).ready(function(){            
+            $.get("prop.cf", function(data) {
+                ip = data;        
+            });
+            initHandlers();
+            changePassHandler();          
+        });
+    </script>
+</body>
+</html>

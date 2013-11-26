@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<webPage version="6">
+  <properties clean="1" joinQuirk="1" sub="04" tra="6028">
+    <cal>c.$('Param5').changeValue(c.$('w2_ccuenta').value);c.$('CUENTA').changeValue(c.$('w2_ccuenta').value);c.$('MONEDACUENTA').changeValue(c.$('w2_cmoneda').value);c.$('COMPANIA').changeValue('2');c.$('BENEFICIARIO').changeValue(c.$('w2_nombrelegal').value);c.$('NUMERODOCUMENTO').value = c.$('F3documento').value;c.$('ValorDocumento').value = c.$('F3valor').value;</cal>
+    <initialJS>c.formulario.posMantener=function(){c.$('escanear').setDisabled(true);}
+c.formulario.posConsultar=function(){c.$('escanear').setDisabled(true);}
+deshabilitarBoton=function(id){var boton = c.$(id);
+boton.setDisabled(true);
+boton.on('widget:init', function(e) { if(!boton.clicked) { boton.setDisabled(true);
+}
+}
+);}
+deshabilitarBoton('imprimir');deshabilitarBoton('escanear');
+c.formulario.preMantener=function(){if(!c.$('imprimir').disabled &amp;&amp; !c.formulario.vars.imprimirClicked) {
+  Validar.error.defer(c.$('imprimir'), 'ES NECESARIO IMPRIMIR Y CAPTURAR EL FORMULARIO');
+  return'ES NECESARIO IMPRIMIR Y CAPTURAR EL FORMULARIO';
+} else {
+  var impr = c.$('imprimir');
+  Validar.ok(impr);
+  impr.removeClassName('error');
+}
+
+if(!c.$('escanear').disabled &amp;&amp; !c.formulario.vars.escanearClicked) {
+  Validar.error.defer(c.$('escanear'), 'ES NECESARIO IMPRIMIR Y CAPTURAR EL FORMULARIO');
+  return'ES NECESARIO IMPRIMIR Y CAPTURAR EL FORMULARIO';
+} else {
+  var escan = c.$('escanear');
+  Validar.ok(escan);
+  escan.removeClassName('error');
+}
+c.$('cImagenes').changeValue(c.$('escanear').value);
+c.$('BENEFICIARIO').changeValue(c.$('F1Beneficiario').value);
+c.$('IDENTIFICACION').changeValue(c.$('F1IdBeneficiario').value);
+c.$('DOCUMENTO').changeValue(c.$('F3documento').value);
+c.$('MOTIVOCHEQUE').changeValue('1');
+c.$('VALOR').changeValue(c.$('F3valor').value);
+return true;}</initialJS>
+    <title>PROTESTO DE CHEQUES</title>
+    <attached>
+      <webPage class="com.fitbank.webpages.AttachedWebPage"
+        subsystem="04" transaction="7805"/>
+    </attached>
+    <references>
+      <reference alias="FINANCIERO"
+        class="com.fitbank.webpages.data.Reference" special="true"
+        storeOnly="true" table="FINANCIERO"/>
+      <reference alias="tctadoc"
+        class="com.fitbank.webpages.data.Reference" storeOnly="true" table="TCUENTADOCUMENTOS"/>
+      <reference alias="timagenes1"
+        class="com.fitbank.webpages.data.Reference"
+        joinType="LEFT_OUTER_JOIN" storeOnly="true" table="TIMAGENES">
+        <dependencies>
+          <item class="com.fitbank.webpages.data.Dependency"
+            comparator="LIKE" field="CIMAGEN" fromAlias="tctadoc" fromField="CIMAGEN"/>
+        </dependencies>
+      </reference>
+    </references>
+  </properties>
+  <containers>
+    <container h="20" tab="0">
+      <widget class="com.fitbank.webpages.widgets.Input" tex="F1fecha" w="0">
+        <attribute nom="val">=$accountingDate</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+        <behaviors>
+          <item class="com.fitbank.webpages.formatters.DateFormatter" format="DATE"/>
+        </behaviors>
+      </widget>
+    </container>
+    <container h="20" title="BENEFICIARIO">
+      <widget class="com.fitbank.webpages.widgets.Label"
+        cssClass="field-label" tex="Identificación" x="1" y="1"/>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="F1IdBeneficiario" w="100" x="2" y="1">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          field="BENEFICIARIO1" type="CONTROL"/>
+        <attribute nom="jvs">onkeypress="if(event.keyCode==13){c.$('F1Beneficiario').focus();}"</attribute>
+        <attribute nom="lon">19</attribute>
+        <attribute nom="req">1</attribute>
+        <behaviors>
+          <item class="com.fitbank.webpages.formatters.UpperCaseFormatter"/>
+          <item class="com.fitbank.webpages.formatters.RegexFormatter"
+            format="[A-Z0-9 -\.]*"
+            message="VALOR NO VÁLIDO PARA EL CAMPO" partialFormat="[A-Z0-9 -\.]*"/>
+        </behaviors>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Label" tex="(*)" x="2" y="1"/>
+      <widget class="com.fitbank.webpages.widgets.Label"
+        cssClass="field-label" tex="Nombres y Apellidos" x="3" y="1"/>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="F1Beneficiario" w="200" x="4" y="1">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          field="NOMBENEFICIARIO" type="CONTROL"/>
+        <attribute nom="jvs">onkeypress="if(event.keyCode==13){c.$('F2IdSolicitante').focus();}"</attribute>
+        <attribute nom="lon">80</attribute>
+        <attribute nom="req">1</attribute>
+        <behaviors>
+          <item class="com.fitbank.webpages.formatters.UpperCaseFormatter"/>
+          <item class="com.fitbank.webpages.formatters.RegexFormatter"
+            format="[\w\d\sÑÁÉÍÓÚ\.\-']*"
+            message="VALOR NO VÁLIDO PARA EL CAMPO" partialFormat="[\w\d\sÑÁÉÍÓÚ\.\-']*"/>
+        </behaviors>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Label" tex="(*)" x="4" y="1"/>
+    </container>
+    <container h="20" title="SOLICITANTE">
+      <widget class="com.fitbank.webpages.widgets.Label"
+        cssClass="field-label" tex="Identificación" x="1" y="1"/>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="F2IdSolicitante" w="100" x="2" y="1">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          field="IDSOLICITANTE" type="CONTROL"/>
+        <attribute nom="jvs">onkeypress="if(event.keyCode==13){c.$('F2Solicitante').focus();}"</attribute>
+        <attribute nom="lon">19</attribute>
+        <attribute nom="req">1</attribute>
+        <behaviors>
+          <item class="com.fitbank.webpages.formatters.UpperCaseFormatter"/>
+          <item class="com.fitbank.webpages.formatters.RegexFormatter"
+            format="[A-Z0-9 -\.]*"
+            message="VALOR NO VÁLIDO PARA EL CAMPO" partialFormat="[A-Z0-9 -\.]*"/>
+        </behaviors>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Label" tex="(*)" x="2" y="1"/>
+      <widget class="com.fitbank.webpages.widgets.Label"
+        cssClass="field-label" tex="Nombres y Apellidos" x="3" y="1"/>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="F2Solicitante" w="200" x="4" y="1">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          field="SOLICITANTE" type="CONTROL"/>
+        <attribute nom="jvs">onkeypress="if(event.keyCode==13){c.$('F3documento').focus();}"</attribute>
+        <attribute nom="lon">80</attribute>
+        <attribute nom="req">1</attribute>
+        <behaviors>
+          <item class="com.fitbank.webpages.formatters.UpperCaseFormatter"/>
+          <item class="com.fitbank.webpages.formatters.RegexFormatter"
+            format="[\w\d\sÑÁÉÍÓÚ\.\-']*"
+            message="VALOR NO VÁLIDO PARA EL CAMPO" partialFormat="[\w\d\sÑÁÉÍÓÚ\.\-']*"/>
+        </behaviors>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Label" x="4" y="1"/>
+      <widget class="com.fitbank.webpages.widgets.Label" tex="(*)" x="4" y="1"/>
+    </container>
+    <container cssClass="column-group" title="Información Cheque">
+      <widget class="com.fitbank.webpages.widgets.Label"
+        cssClass="field-label" tex="Nro. Cheque" x="1" y="1"/>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="F3documento" w="120" x="2" y="1">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="DOCUMENTO" type="CONTROL"/>
+        <attribute nom="lon">8</attribute>
+        <attribute nom="req">1</attribute>
+        <behaviors>
+          <item class="com.fitbank.webpages.formatters.NumberFormatter" format="0"/>
+        </behaviors>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Label" tex="(*)" x="2" y="1"/>
+      <widget class="com.fitbank.webpages.widgets.Label"
+        cssClass="field-label" tex="Valor" x="1" y="2"/>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="F3valor"
+        w="120" x="2" y="2">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="VALOR" type="CONTROL"/>
+        <attribute nom="lon">16</attribute>
+        <attribute nom="req">1</attribute>
+        <assistant class="com.fitbank.webpages.assistants.ListOfValues"
+          transaction="0041" visible="false">
+          <references>
+            <item alias="lov"
+              class="com.fitbank.webpages.data.Reference" table="TCONSULTAREPORTEPARAMETROS"/>
+          </references>
+          <fields>
+            <item alias="lov"
+              class="com.fitbank.webpages.assistants.lov.LOVField"
+              elementName="F3multa" field="PARAMETRO1" type="RECORD"/>
+            <item alias="lov" autoQuery="true"
+              class="com.fitbank.webpages.assistants.lov.LOVField"
+              elementName="Param1" field="PARAMETRO10" required="true"
+              type="CRITERION" visible="false"/>
+            <item alias="lov" autoQuery="true"
+              class="com.fitbank.webpages.assistants.lov.LOVField"
+              elementName="Param2" field="PARAMETRO11" required="true"
+              type="CRITERION" visible="false"/>
+            <item alias="lov" autoQuery="true"
+              class="com.fitbank.webpages.assistants.lov.LOVField"
+              elementName="Param3" field="PARAMETRO12" required="true"
+              type="CRITERION" visible="false"/>
+            <item alias="lov" autoQuery="true"
+              class="com.fitbank.webpages.assistants.lov.LOVField"
+              elementName="Param4" field="PARAMETRO13" required="true"
+              type="CRITERION" visible="false"/>
+            <item alias="lov" autoQuery="true"
+              class="com.fitbank.webpages.assistants.lov.LOVField"
+              elementName="Param5" field="PARAMETRO14" required="true"
+              type="CRITERION" visible="false"/>
+            <item alias="lov" autoQuery="true"
+              class="com.fitbank.webpages.assistants.lov.LOVField"
+              elementName="Param6" field="PARAMETRO15" required="true"
+              type="CRITERION" visible="false"/>
+            <item alias="lov" autoQuery="true"
+              class="com.fitbank.webpages.assistants.lov.LOVField"
+              elementName="F3valor" field="PARAMETRO16" required="true"
+              type="CRITERION" visible="false"/>
+          </fields>
+        </assistant>
+        <behaviors>
+          <item class="com.fitbank.webpages.formatters.NumberFormatter"/>
+        </behaviors>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Label" tex="(*)" x="2" y="2"/>
+      <widget class="com.fitbank.webpages.widgets.Label"
+        cssClass="field-label" tex="Multa" x="1" y="3"/>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="F3multa"
+        w="120" x="2" y="3">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="_MULTA" type="CRITERION_CONTROL"/>
+        <attribute nom="lon">13</attribute>
+        <attribute nom="mod">0</attribute>
+        <behaviors>
+          <item class="com.fitbank.webpages.formatters.NumberFormatter"/>
+        </behaviors>
+      </widget>
+    </container>
+    <container>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="Param1" w="0">
+        <attribute nom="val">=$subsystem</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="Param2" w="0">
+        <attribute nom="val">=$transaction</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="Param3" w="0">
+        <attribute nom="val">=$version</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="Param4" w="0">
+        <attribute nom="val">=$channel</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="Param5" w="0">
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="Param6" w="0">
+        <attribute nom="val">1</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+    </container>
+    <container cssClass="column-group">
+      <widget class="com.fitbank.webpages.widgets.Button" tex="limpiar">
+        <attribute nom="jvs">onclick="c.borrar('F3valor');c.borrar('F3documento');c.borrar('F3multa');"</attribute>
+        <attribute nom="dat">Limpiar Datos</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Button" tex="imprimir">
+        <attribute nom="jvs">onclick="c.formulario.vars.imprimirClicked=true;c.$('escanear').setDisabled(false);this.setDisabled.bind(this,true).defer();Validar.ok(c.$('imprimir'));"</attribute>
+        <attribute nom="dat">Reporte</attribute>
+        <behaviors>
+          <item class="com.fitbank.webpages.behaviors.Report" name="PROTESTOCHEQUE."/>
+          <item class="com.fitbank.webpages.behaviors.FormulaDisabler"
+            fireAlways="true" formula="=EMPTY(ccuentar) || EMPTY(documentor) || EMPTY (valorr) || EMPTY(fcontabler) || EMPTY(identificacionr) || EMPTY(nombrer) || EMPTY(idsolicitanter) || EMPTY(solitanter)"/>
+        </behaviors>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="ccuentar" w="0">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="CCUENTA" type="REPORT"/>
+        <attribute nom="val">=w2_ccuenta</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="documentor" w="0">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="NROCHEQUE" type="REPORT"/>
+        <attribute nom="val">=F3documento</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="valorr" w="0">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="VALOR" type="REPORT"/>
+        <attribute nom="val">=F3valor</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="fcontabler" w="0">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="ACCOUNTDATE" type="REPORT"/>
+        <attribute nom="val">=$accountingDate</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+        <behaviors>
+          <item class="com.fitbank.webpages.formatters.DateFormatter" format="DATE"/>
+        </behaviors>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="identificacionr" w="0">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="IDBENEFICIARIO" type="REPORT"/>
+        <attribute nom="val">=F1IdBeneficiario</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="nombrer" w="0">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="BENEFICIARIO" type="REPORT"/>
+        <attribute nom="val">=F1Beneficiario</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="idsolicitanter" w="0">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="IDSOLICITANTE" type="REPORT"/>
+        <attribute nom="val">=F2IdSolicitante</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="solitanter" w="0">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="SOLICITANTE" type="REPORT"/>
+        <attribute nom="val">=F2Solicitante</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" w="0">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="NAME" type="CRITERION_CONTROL"/>
+        <attribute nom="val">PROTESTOCHEQUE</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" w="0">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="TYPE" type="CRITERION_CONTROL"/>
+        <attribute nom="val">PDF</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" w="0">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="_AUTORIZAR_PROTESTO" type="CRITERION_CONTROL"/>
+        <attribute nom="val">true</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" w="0">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          field="TIPODOCUMENTO" type="CONTROL"/>
+        <attribute nom="val">CPR</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" w="0">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          field="CCUENTA" type="CONTROL"/>
+        <attribute nom="val">=w2_ccuenta</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Button" tex="escanear">
+        <attribute nom="jvs">onclick="c.formulario.vars.escanearClicked=true;c.$('imprimir').setDisabled(false);this.setDisabled.bind(this,true).defer();Validar.ok(c.$('escanear'));"</attribute>
+        <attribute nom="dat">Capturar Formulario</attribute>
+        <assistant class="com.fitbank.webpages.assistants.Scanner">
+          <scanningJob class="com.fitbank.scanner.ScanningJob" h="50.0" w="50.0"/>
+        </assistant>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="cImagenes" w="0">
+        <dataSource alias="timagenes1"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="IMAGEN" type="RECORD"/>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="cImagenImagenes" w="0">
+        <dataSource alias="timagenes1"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="CIMAGEN" type="RECORD"/>
+        <attribute nom="req">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="ctipoImagene" w="0">
+        <dataSource alias="timagenes1"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="CTIPOIMAGEN" type="RECORD"/>
+        <attribute nom="val">T</attribute>
+        <attribute nom="req">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="cImagenDocumentos" w="0">
+        <dataSource alias="tctadoc"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="CIMAGEN" type="RECORD"/>
+        <attribute nom="req">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="ccuentaDocumentos" w="0">
+        <dataSource alias="tctadoc"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="CCUENTA" type="RECORD"/>
+        <attribute nom="val">=w2_ccuenta</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="companiaDocumentos" w="0">
+        <dataSource alias="tctadoc"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="CPERSONA_COMPANIA" type="RECORD"/>
+        <attribute nom="val">=$company</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="NUMERODOCUMENTO" w="0">
+        <dataSource alias="tctadoc"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="NUMERODOCUMENTO" type="RECORD"/>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="CtipoDocumento" w="0">
+        <dataSource alias="tctadoc"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="CTIPODOCUMENTOPRODUCTO" type="RECORD"/>
+        <attribute nom="val">CPR</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="CmonedaDocumento" w="0">
+        <dataSource alias="tctadoc"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="CMONEDA" type="RECORD"/>
+        <attribute nom="val">=w2_cmoneda</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="ValorDocumento" w="0">
+        <dataSource alias="tctadoc"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="VALORDOCUMENTO" type="RECORD"/>
+        <attribute nom="vis">0</attribute>
+        <behaviors>
+          <item class="com.fitbank.webpages.formatters.NumberFormatter"/>
+        </behaviors>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="fEmisionDocumento" w="0">
+        <dataSource alias="tctadoc"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="FEMISION" type="RECORD"/>
+        <attribute nom="val">=$accountingDate</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+        <behaviors>
+          <item class="com.fitbank.webpages.formatters.DateFormatter"
+            format="DATE" transportFormat="DATE"/>
+        </behaviors>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="usuarioDocumento" w="0">
+        <dataSource alias="tctadoc"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="CUSUARIO_EMISION" type="RECORD"/>
+        <attribute nom="val">=$user</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+    </container>
+    <container>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="FINANCIERO">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="FINANCIERO" type="CRITERION_CONTROL"/>
+        <attribute nom="val">true</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="MODO" w="136">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="MODO" type="CRITERION_CONTROL"/>
+        <attribute nom="val">N</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="DOCUMENTO" w="106">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="DOCUMENTO" type="CRITERION_CONTROL"/>
+        <attribute nom="lon">15</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="TIPOIDENTIFICACION" w="136">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="TIPOIDENTIFICACION" type="CRITERION_CONTROL"/>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="BENEFICIARIO" w="136">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="BENEFICIARIO" type="CRITERION_CONTROL"/>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="IDENTIFICACION" w="136">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="IDENTIFICACION" type="CRITERION_CONTROL"/>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="MOTIVOCHEQUE" w="136">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="MOTIVOCHEQUE" type="CRITERION_CONTROL"/>
+        <attribute nom="vis">0</attribute>
+      </widget>
+    </container>
+    <container h="8">
+      <widget class="com.fitbank.webpages.widgets.Input" tex="CODIGO">
+        <dataSource alias="FINANCIERO"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="CODIGO" type="RECORD"/>
+        <attribute nom="val">1</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="CUENTA" w="136">
+        <dataSource alias="FINANCIERO"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="CUENTA" type="RECORD"/>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="COMPANIA">
+        <dataSource alias="FINANCIERO"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="COMPANIA" type="RECORD"/>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="SUBCUENTA">
+        <dataSource alias="FINANCIERO"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="SUBCUENTA" type="RECORD"/>
+        <attribute nom="val">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="MONEDACUENTA" w="136">
+        <dataSource alias="FINANCIERO"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="MONEDACUENTA" type="RECORD"/>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="CODIGOCONTABLE">
+        <dataSource alias="FINANCIERO"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="CODIGOCONTABLE" type="RECORD"/>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="SUCURSALDESTINO">
+        <dataSource alias="FINANCIERO"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="SUCURALDESTINO" type="RECORD"/>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="OFICINADESTINO">
+        <dataSource alias="FINANCIERO"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="OFICINADESTINO" type="RECORD"/>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="MONEDAORIGINAL">
+        <dataSource alias="FINANCIERO"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="MONEDAORIGINAL" type="RECORD"/>
+        <attribute nom="val">USD</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="VALOR" w="106">
+        <dataSource alias="FINANCIERO"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="VALOR" type="RECORD"/>
+        <attribute nom="val">0</attribute>
+        <attribute nom="vis">0</attribute>
+        <behaviors>
+          <item class="com.fitbank.webpages.formatters.NumberFormatter" format="0.00"/>
+        </behaviors>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="CONCEPTO">
+        <dataSource alias="FINANCIERO"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="CONCEPTO" type="RECORD"/>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="DESCRIPCION" w="136">
+        <dataSource alias="FINANCIERO"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="DESCRIPCION" type="RECORD"/>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="FECHAVENCIMIENTO">
+        <dataSource alias="FINANCIERO"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="FECHAVENCIMIENTO" type="RECORD"/>
+        <attribute nom="vis">0</attribute>
+        <behaviors>
+          <item class="com.fitbank.webpages.formatters.DateFormatter" format="DATE"/>
+        </behaviors>
+      </widget>
+    </container>
+  </containers>
+</webPage>

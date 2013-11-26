@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<webPage version="6">
+  <properties clean="1" joinQuirk="1" postQuery="1" sub="00" tra="2009">
+    <initialJS>c.formulario.preMantener=function(){if(c.$('estatus').value == '') {
+  return'DEBE APROBAR O NEGAR';
+  c.$('botonAprobar').disabled = false;
+  c.$('botonNegar').disabled = false;
+} else {
+  c.$('botonAprobar').disabled = true;
+  c.$('botonNegar').disabled = true;
+}}
+c.$('control').changeValue('1');if(!top.auth) {
+  c.cargar('00', '2008', {'valor1':'valor1'});
+}c.$('control').changeValue('1');if(!top.auth) {
+  c.cargar('00', '2008', {'valor1':'valor1'});
+}
+c.formulario.posMantener=function(){top.auth = false;
+c.cargar('00', '2008', {'valor1':'valor1'});}
+c.formulario.posConsultar=function(){top.auth = false;}</initialJS>
+    <title>AUTORIZACION DE TRANSACCION</title>
+    <references>
+      <reference alias="tautflujo"
+        class="com.fitbank.webpages.data.Reference" table="TAUTORIZACIONFLUJO"/>
+    </references>
+  </properties>
+  <containers>
+    <container>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="cusuario_autoriza" w="0">
+        <dataSource alias="tautflujo"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="CUSUARIO_AUTORIZA" type="CRITERION"/>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="req">1</attribute>
+        <attribute nom="cln">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="sautorizacionflujo" w="0">
+        <dataSource alias="tautflujo"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="SAUTORIZACIONFLUJO" type="CRITERION"/>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="req">1</attribute>
+        <attribute nom="cln">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="cusuario_control" w="0">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="USUARIO" type="CRITERION_CONTROL"/>
+        <attribute nom="val">=cusuario_autoriza</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="cln">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="sautorizacion_control" w="0">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="SECUENCIA" type="CRITERION_CONTROL"/>
+        <attribute nom="val">=sautorizacionflujo</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="cln">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="control" w="0">
+        <attribute nom="cln">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" w="0">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          field="FITBANK" type="CONTROL"/>
+        <attribute nom="val">1</attribute>
+        <attribute nom="cln">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+    </container>
+    <container cssClass="column-group">
+      <widget class="com.fitbank.webpages.widgets.Label"
+        cssClass="field-label" tex="Subsistema" x="1" y="1"/>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="csubsistema" w="50" x="2" y="1">
+        <dataSource alias="tautflujo"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="CSUBSISTEMA" type="RECORD"/>
+        <attribute nom="lon">2</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="req">1</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Label"
+        cssClass="field-label" tex="Transacción" x="1" y="2"/>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="ctransaccion" w="50" x="2" y="2">
+        <dataSource alias="tautflujo"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="CTRANSACCION" type="RECORD"/>
+        <attribute nom="lon">4</attribute>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="req">1</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="dtransaccion" w="350" x="2" y="2">
+        <dataSource alias="TSUBSISTEMATRANSACCIONES"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="DESCRIPCION" type="DESCRIPTION">
+          <dependencies>
+            <item class="com.fitbank.webpages.data.Dependency"
+              field="CSUBSISTEMA" fromAlias="tautflujo"
+              fromField="CSUBSISTEMA" type="CRITERION"/>
+            <item class="com.fitbank.webpages.data.Dependency"
+              field="CTRANSACCION" fromAlias="tautflujo"
+              fromField="CTRANSACCION" type="CRITERION"/>
+          </dependencies>
+        </dataSource>
+        <attribute nom="lon">60</attribute>
+        <attribute nom="mod">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input" tex="estatus" w="0">
+        <dataSource alias="tautflujo"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="ESTATUS" type="RECORD"/>
+        <attribute nom="lon">1</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Label"
+        cssClass="field-label" tex="Observaciones" x="1" y="4"/>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="observaciones" w="200" x="2" y="4">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="_BPM_OBS" type="CONTROL"/>
+        <attribute nom="lon">200</attribute>
+        <attribute nom="req">1</attribute>
+        <assistant class="com.fitbank.webpages.assistants.LongText"/>
+        <behaviors>
+          <item class="com.fitbank.webpages.formatters.UpperCaseFormatter"/>
+        </behaviors>
+      </widget>
+    </container>
+    <container cssClass="column-group">
+      <widget class="com.fitbank.webpages.widgets.IFrame" h="320"
+        tex="detalle" y="5">
+        <dataSource alias="tautflujo"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="DETALLE" type="RECORD"/>
+      </widget>
+    </container>
+    <container cssClass="column-group">
+      <widget class="com.fitbank.webpages.widgets.Button"
+        tex="botonAprobar" w="100" x="2" y="1">
+        <attribute nom="jvs">onclick="c.$('estatus').changeValue('A');c.$('_trnstatus').changeValue('2');c.mantener();"</attribute>
+        <attribute nom="dat">Aprobar</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Button"
+        tex="botonNegar" w="100" x="3" y="1">
+        <attribute nom="jvs">onclick="c.$('estatus').changeValue('N');c.$('_trnstatus').changeValue('3');c.mantener();"</attribute>
+        <attribute nom="dat">Negar</attribute>
+      </widget>
+    </container>
+    <container>
+      <widget class="com.fitbank.webpages.widgets.InputLabel"
+        cssClass="field-label" tex="c_Regresar_0" w="0">
+        <attribute nom="val">Regresar</attribute>
+        <behaviors>
+          <item class="com.fitbank.webpages.behaviors.ReturnLink"/>
+        </behaviors>
+      </widget>
+    </container>
+    <container>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="nameInstance" w="0">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="BPMInstanceName" type="CRITERION_CONTROL"/>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="motivoautorizacion" w="0">
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="_trnstatus" w="0">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" field="_TRNSTATUS" type="CRITERION_CONTROL"/>
+        <attribute nom="vis">0</attribute>
+      </widget>
+    </container>
+    <container cssClass="criteria-group">
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="subsistema" w="0">
+        <dataSource alias="tautflujo"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="CSUBSISTEMA" type="CRITERION"/>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="req">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="ctransaccionc" w="0">
+        <dataSource alias="tautflujo"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="CTRANSACCION" type="CRITERION"/>
+        <attribute nom="lon">4</attribute>
+        <attribute nom="req">1</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="versiontrac" w="0">
+        <dataSource alias="tautflujo"
+          class="com.fitbank.webpages.data.DataSource" comparator="LIKE"
+          field="VERSIONTRANSACCION" type="CRITERION"/>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+      <widget class="com.fitbank.webpages.widgets.Input"
+        tex="descripciontrac" w="0">
+        <dataSource class="com.fitbank.webpages.data.DataSource"
+          comparator="LIKE" type="CRITERION_CONTROL"/>
+        <attribute nom="mod">0</attribute>
+        <attribute nom="cln">0</attribute>
+        <attribute nom="vis">0</attribute>
+      </widget>
+    </container>
+  </containers>
+</webPage>

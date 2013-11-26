@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns		= "http://www.w3.org/ns/widgets"
+	xmlns:gap	= "http://phonegap.com/ns/1.0"
+	id		= "com.fitnofit.notifmobile"
+	version 	= "1.0.0">
+
+	<name>FitNotification</name>
+
+	<description>
+		FitBank Authorization App. for Bank Official
+	</description>
+
+	<author href="http://www.bantecinc.com"
+		email="fitnotification@gmail.com">
+		Santiago Gonzalez Toral - Oscar Malgiaritta
+	</author>
+
+
+<!-- Default -->
+	<preference name="phonegap-version" value="1.6.1" />
+	<preference name="fullscreen" value="true" />
+	<icon src="icon.png" />
+	<gap:splash src="splash.png" />
+
+
+<!--Blackberry specific -->
+	<!-- <preference name="disable-cursor" value="true" /> -->
+	<icon src="css/images/icon-80x80.png" gap:platform="blackberry" />
+	<icon src="css/images/icon-80x80.png" gap:platform="blackberry" gap:state="hover"/>
+	<gap:splash src="css/images/welcome-blackberry-480x320.png" gap:platform="blackberry"/>
+
+<!-- /\/\/\/\/\/\/\/\/\ -->
+
+
+
+
+<!-- Android requires specific dimensions; ldpi, mdpi, and hdpi respecitvely.  
+    	<icon src="css/images/icon-android-36.png" width="36" height="36"/>     	 
+    	<icon src="css/images/icon-android-72.png" width="72" height="72"/> -->
+
+	<icon src="css/images/icon-48x48.png" width="48" height="48" gap:platform="android" gap:density="mdpi"/>
+	<gap:splash src="css/images/splash-screen-320x460.png" gap:platform="android" gap:density="mdpi" />
+
+<!-- /\/\/\/\/\/\/\/\/\ -->
+<!--	<gap:platforms>
+		<gap:platform name="android" minVersion="2.1" />
+		<gap:platform name="webos" />
+		<gap:platform name="symbian.wrt" />
+		<gap:platform name="blackberry" project="widgets"/>
+	</gap:platforms>
+-->
+	<!--
+	<feature name="http://api.phonegap.com/1.0/geolocation"/>
+	<feature name="http://api.phonegap.com/1.0/network"/>
+	<feature name="http://api.phonegap.com/1.0/notification"/>
+	-->
+</widget>

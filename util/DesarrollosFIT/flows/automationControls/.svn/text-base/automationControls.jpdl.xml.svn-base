@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="automationControls" xmlns="http://jbpm.org/4.0/jpdl">
+<start g="98,1,48,48" name="start1">
+      <transition to="Verificacion Documento"/>
+   </start>   
+   <sub-process g="19,89,205,52" name="Verificacion Documento" sub-process-key="comAuthorization">
+      <parameter-in expr="#{det}" subvar="detail"/>
+      <parameter-in expr="#{origin}" subvar="origin"/>
+      <parameter-in expr="18" subvar="ruleFilter"/>
+      <parameter-in expr="AutomationControlsVerify" subvar="ruleGroup"/>
+      <parameter-in expr="30 minutes" subvar="timeAuth"/> 
+      <parameter-in expr="com.fitbank.bpm.query.mail.DocumentVerification" subvar="message"/> 
+      <parameter-out subvar="detail" var="detail5"/>
+      <parameter-out subvar="response" var="response"/>
+      <transition g="210,41:" to="exclusive5"/>      
+   </sub-process>
+   <decision expr="#{detail5.fRESPONSE.value}" g="303,16,48,48" name="exclusive5">
+      <transition g="620,39:-56,-20" name="NO" to="NO"/>
+      <transition g="-19,-15" name="OK" to="Prepara Detail V"/>
+   </decision>
+   <java class="com.fitbank.bpm.common.FieldFiller" g="252,89,151,52" method="execute" name="Prepara Detail V" var="det">
+   	  <arg><object expr="#{det}"/></arg>
+      <arg><object expr="_DETAIL"/></arg>   
+      <arg><object expr="#{detail5}"/></arg>
+      <transition to="Guardar Verificacion"/>
+   </java>                  
+   <java class="com.fitbank.bpm.common.ExecuteNonTransaction" g="255,170,144,52" method="execute" name="Guardar Verificacion" var="det">
+      <arg><object expr="#{det}"/></arg>
+      <arg><object expr="#{'01'}"/></arg>
+      <arg><object expr="#{'9117'}"/></arg>
+      <arg><object expr="#{'01'}"/></arg>
+      <transition to="Autorizar"/>
+   </java>
+   <java class="com.fitbank.bpm.common.FieldFiller" g="281,244,92,52" method="execute" name="Autorizar" var="det">  
+      <arg><object expr="#{det}"/></arg>
+      <arg><object expr="_ESTATUS"/></arg>   
+      <arg><object expr="AUTORIZAR"/></arg>
+      <transition to="Autorizacion Documento"/>      
+   </java>   
+   <sub-process g="464,242,205,52" name="Autorizacion Documento" sub-process-key="comAuthorization">
+      <parameter-in expr="#{det}" subvar="detail"/>
+      <parameter-in expr="#{origin}" subvar="origin"/>
+      <parameter-in expr="18" subvar="ruleFilter"/>
+      <parameter-in expr="AutomationControlsAuthorize" subvar="ruleGroup"/>
+      <parameter-in expr="30 minutes" subvar="timeAuth"/> 
+      <parameter-in expr="com.fitbank.bpm.query.mail.DocumentAuthorization" subvar="message"/> 
+      <parameter-out subvar="detail" var="detail4"/>
+      <parameter-out subvar="response" var="response"/>
+      <transition to="exclusive4"/>      
+   </sub-process>   
+   <decision expr="#{detail4.fRESPONSE.value}" g="545,322,48,48" name="exclusive4">
+      <transition g="665,344:-53,4" name="NO" to="NO"/>
+      <transition g="-19,-15" name="OK" to="Prepara Detail A"/>
+   </decision>
+   <java class="com.fitbank.bpm.common.FieldFiller" g="494,398,151,52" method="execute" name="Prepara Detail A" var="det">
+   	  <arg><object expr="#{det}"/></arg>
+      <arg><object expr="_DETAIL"/></arg>   
+      <arg><object expr="#{detail4}"/></arg>
+      <transition to="Guardar Autorizacion"/>
+   </java>
+   <java class="com.fitbank.bpm.common.ExecuteTransaction" g="254,399,147,52" method="execute" name="Guardar Autorizacion" var="detail">
+      <arg><object expr="#{det}"/></arg>
+      <arg><object expr="#{'01'}"/></arg>
+      <arg><object expr="#{'9117'}"/></arg>
+      <arg><object expr="#{'01'}"/></arg>       
+      <transition to="OK"/>
+   </java>   
+   <java class="com.fitbank.bpm.common.FieldFiller" g="76,318,92,52" method="execute" name="OK" var="detail">
+      <arg><object expr="#{detail}"/></arg>
+      <arg><object expr="_BPMEND"/></arg>   
+      <arg><object expr="1"/></arg>
+      <transition to="APROBADO"/>
+   </java>                          
+   <java class="com.fitbank.bpm.common.FieldFiller" g="721,89,92,52" method="execute" name="NO" var="detail">  
+      <arg><object expr="#{detail}"/></arg>
+      <arg><object expr="_BPMEND"/></arg>   
+      <arg><object expr="1"/></arg>
+      <transition to="NEGADO"/>
+   </java>    
+   <state g="721,318,92,52" name="NEGADO">
+      <transition g="-31,-6" name="END" to="end1"/>
+   </state>
+   <end g="743,452,48,48" name="end1"/>
+   <state g="76,450,92,52" name="APROBADO">
+      <transition g="-5,-20" name="END" to="end1"/>
+   </state>                    
+</process>

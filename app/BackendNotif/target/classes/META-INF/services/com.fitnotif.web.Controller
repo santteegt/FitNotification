@@ -1,0 +1,36 @@
+#Login
+com.fitnotif.web.process.Login
+#Cambio de contrasena
+com.fitnotif.web.process.NewPassword
+#Envio de dispositivos registrados
+com.fitnotif.web.process.GetUserDevices
+#Actualizacion de dispositivos
+com.fitnotif.web.process.UpdateDeviceList
+#Informacion del error
+com.fitnotif.web.process.ErrorInfo
+#Informacion de las notificaciones pendientes
+com.fitnotif.web.process.NotificationList
+#Logout
+com.fitnotif.web.process.Logout
+#Pagina Autorizacion
+com.fitnotif.web.process.AuthorizationPage
+#Pedido de Autorizacion
+com.fitnotif.web.process.AuthorizationRequest
+#Decision de autorizacion
+com.fitnotif.web.process.Authorization
+#Obtencion de informacion de usuario
+com.fitnotif.web.process.GetUserInfo
+#Obtencion de parametros del servidor
+com.fitnotif.web.process.GetServerConfParameters
+#Actualizacion de parametros del servidor
+com.fitnotif.web.process.UpdateServerConfParameters
+#Reinicio de la contrasena de usuario
+com.fitnotif.web.process.RebootUserPass
+#Finalizacion de la sesion de usuario
+com.fitnotif.web.process.FinishUserSession
+#Elimina una autorizacion
+com.fitnotif.web.process.DeleteAuthorization
+#Obtiene un parametro del Servidor
+com.fitnotif.web.process.GetSystemParameter
+#Verifica que el usuario no haya pasado el numero maximo de dispositivos conectados
+com.fitnotif.web.process.AskExeededDevices

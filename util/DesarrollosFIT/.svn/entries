@@ -1,0 +1,55 @@
+10
+
+dir
+312
+svn+ssh://192.168.1.11/home/santiago/svnrepo/branches/desarrollo/util/DesarrollosFIT
+svn+ssh://192.168.1.11/home/santiago/svnrepo
+
+
+
+2012-05-27T21:13:28.315571Z
+223
+santiago
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3f0a3858-96a1-4d75-a0e3-3a8146f8ff1c
+
+formularios
+dir
+
+query
+dir
+
+person
+dir
+
+warranty
+dir
+
+view
+dir
+
+flows
+dir
+
+rules
+dir
+
+bpm-commands
+dir
+
+general
+dir
+

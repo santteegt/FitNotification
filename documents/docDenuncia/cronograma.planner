@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+<project name="Sistema m&#xF3;vil para el control de autorizaciones" company="" manager="" phase="" project-start="20110725T000000Z" mrproject-version="2" calendar="1">
+  <properties/>
+  <phases/>
+  <calendars>
+    <day-types>
+      <day-type id="0" name="Jornada laboral" description="Un d&#xED;a de trabajo predeterminado"/>
+      <day-type id="1" name="Jornada de descanso" description="Un d&#xED;a de descanso predeterminado"/>
+      <day-type id="2" name="Usar base" description="Usar d&#xED;a del calendario base"/>
+    </day-types>
+    <calendar id="1" name="Predeterminado">
+      <default-week mon="0" tue="0" wed="0" thu="0" fri="0" sat="1" sun="1"/>
+      <overridden-day-types>
+        <overridden-day-type id="0">
+          <interval start="0800" end="1200"/>
+          <interval start="1300" end="1700"/>
+        </overridden-day-type>
+      </overridden-day-types>
+      <days/>
+    </calendar>
+  </calendars>
+  <tasks>
+    <task id="1" name="An&#xE1;lisis del Proyecto" note="" work="432000" start="20110725T000000Z" end="20110812T170000Z" work-start="20110725T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="2" name="Revisi&#xF3;n An&#xE1;lisis" note="" work="0" start="20110812T170000Z" end="20110812T170000Z" work-start="20110812T170000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="1" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="3" name="Investigaci&#xF3;n J2ME" note="" work="144000" start="20110725T000000Z" end="20110729T170000Z" work-start="20110725T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="4" name="Investigaci&#xF3;n BB/BB WebWorks API" note="" work="288000" start="20110729T170000Z" end="20110812T170000Z" work-start="20110801T080000Z" percent-complete="21" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="3" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="5" name="Investigaci&#xF3;n Webkit" note="" work="144000" start="20110812T170000Z" end="20110819T170000Z" work-start="20110815T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="4" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="6" name="Investigaci&#xF3;n BB Simulator" note="" work="144000" start="20110819T170000Z" end="20110826T170000Z" work-start="20110822T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="5" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="7" name="Pruebas Eclipse+Plugins" note="" work="144000" start="20110826T170000Z" end="20110902T170000Z" work-start="20110829T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="6" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="8" name="Dise&#xF1;o general de la aplicaci&#xF3;n" note="" work="432000" start="20110812T170000Z" end="20110902T170000Z" work-start="20110815T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="2" type="FS"/>
+        <predecessor id="1" predecessor-id="1" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="9" name="Revisi&#xF3;n Dise&#xF1;o" note="" work="0" start="20110902T170000Z" end="20110902T170000Z" work-start="20110902T170000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="8" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="10" name="M&#xF3;dulo de notificaciones" note="" work="576000" start="20110902T170000Z" end="20110930T170000Z" work-start="20110905T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="9" type="FS"/>
+        <predecessor id="1" predecessor-id="1" type="FS"/>
+        <predecessor id="1" predecessor-id="8" type="FS"/>
+      </predecessors>
+      <task id="11" name="Depuraci&#xF3;n del dise&#xF1;o del m&#xF3;dulo 1" note="" work="86400" start="20110902T170000Z" end="20110907T170000Z" work-start="20110905T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="12" name="Codificaci&#xF3;n del m&#xF3;dulo 1" note="" work="432000" start="20110907T170000Z" end="20110928T170000Z" work-start="20110908T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="11" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="13" name="Pruebas 1" note="" work="57600" start="20110928T170000Z" end="20110930T170000Z" work-start="20110929T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="12" type="FS"/>
+        </predecessors>
+      </task>
+    </task>
+    <task id="14" name="Revisi&#xF3;n Notificaciones" note="" work="0" start="20110930T170000Z" end="20110930T170000Z" work-start="20110930T170000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="10" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="15" name="M&#xF3;dulo de autorizaciones" note="" work="576000" start="20110930T170000Z" end="20111028T170000Z" work-start="20111003T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="14" type="FS"/>
+        <predecessor id="1" predecessor-id="8" type="FS"/>
+        <predecessor id="1" predecessor-id="1" type="FS"/>
+      </predecessors>
+      <task id="16" name="Depuraci&#xF3;n del dise&#xF1;o del m&#xF3;dulo 2" note="" work="86400" start="20110930T170000Z" end="20111005T170000Z" work-start="20111003T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="17" name="Codificaci&#xF3;n del m&#xF3;dulo 2" note="" work="432000" start="20111005T170000Z" end="20111026T170000Z" work-start="20111006T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="16" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="18" name="Pruebas 2" note="" work="57600" start="20111026T170000Z" end="20111028T170000Z" work-start="20111027T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="17" type="FS"/>
+        </predecessors>
+      </task>
+    </task>
+    <task id="19" name="Revisi&#xF3;n Autorizaciones" note="" work="0" start="20111028T170000Z" end="20111028T170000Z" work-start="20111028T170000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="15" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="20" name="M&#xF3;dulo de comunicaciones app-servidor" note="" work="777600" start="20111028T170000Z" end="20111129T170000Z" work-start="20111031T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="19" type="FS"/>
+      </predecessors>
+      <task id="21" name="Dise&#xF1;o del formato XML" note="" work="144000" start="20111028T170000Z" end="20111104T170000Z" work-start="20111031T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="22" name="Depuraci&#xF3;n del dise&#xF1;o del m&#xF3;dulo 3" note="" work="144000" start="20111028T170000Z" end="20111104T170000Z" work-start="20111031T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="23" name="Codificaci&#xF3;n del m&#xF3;dulo 3" note="" work="432000" start="20111104T170000Z" end="20111125T170000Z" work-start="20111107T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="22" type="FS"/>
+          <predecessor id="1" predecessor-id="21" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="24" name="Pruebas 3" note="" work="57600" start="20111125T170000Z" end="20111129T170000Z" work-start="20111128T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="23" type="FS"/>
+        </predecessors>
+      </task>
+    </task>
+    <task id="25" name="Revisi&#xF3;n Comunicaciones" note="" work="0" start="20111129T170000Z" end="20111129T170000Z" work-start="20111129T170000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="20" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="26" name="M&#xF3;dulo de comunicaciones servidor-n&#xFA;cleo" note="" work="720000" start="20111129T170000Z" end="20120103T170000Z" work-start="20111130T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="25" type="FS"/>
+      </predecessors>
+      <task id="27" name="An&#xE1;lisis del n&#xFA;cleo bancario" note="" work="144000" start="20111129T170000Z" end="20111206T170000Z" work-start="20111130T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="28" name="Dise&#xF1;o del m&#xF3;dulo 4" note="" work="86400" start="20111206T170000Z" end="20111209T170000Z" work-start="20111207T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="27" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="29" name="Codificaci&#xF3;n del m&#xF3;dulo 4" note="" work="432000" start="20111209T170000Z" end="20111230T170000Z" work-start="20111212T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="28" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="30" name="Pruebas 4" note="" work="57600" start="20111230T170000Z" end="20120103T170000Z" work-start="20120102T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="29" type="FS"/>
+        </predecessors>
+      </task>
+    </task>
+    <task id="31" name="Revisi&#xF3;n Comunicaciones 2" note="" work="0" start="20120103T170000Z" end="20120103T170000Z" work-start="20120103T170000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="26" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="32" name="Aplicaci&#xF3;n" note="" work="1296000" start="20120103T170000Z" end="20120306T170000Z" work-start="20120104T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="31" type="FS"/>
+      </predecessors>
+      <task id="33" name="Depuraci&#xF3;n del dise&#xF1;o de la aplicaci&#xF3;n" note="" work="144000" start="20120103T170000Z" end="20120110T170000Z" work-start="20120104T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="34" name="Desarrollo de la aplicaci&#xF3;n Web" note="" work="576000" start="20120110T170000Z" end="20120207T170000Z" work-start="20120111T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="33" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="35" name="Revisi&#xF3;n Web" note="" work="0" start="20120207T170000Z" end="20120207T170000Z" work-start="20120207T170000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="34" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="36" name="Desarrollo de la aplicaci&#xF3;n J2ME para BB" note="" work="576000" start="20120207T170000Z" end="20120306T170000Z" work-start="20120208T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="35" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="37" name="Revisi&#xF3;n BB" note="" work="0" start="20120306T170000Z" end="20120306T170000Z" work-start="20120306T170000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="36" type="FS"/>
+        </predecessors>
+      </task>
+    </task>
+    <task id="38" name="Pruebas en Simulador BB" note="" work="432000" start="20120306T170000Z" end="20120327T170000Z" work-start="20120307T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="36" type="FS"/>
+        <predecessor id="1" predecessor-id="6" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="39" name="Pruebas en Smartphones" note="" work="432000" start="20120306T170000Z" end="20120327T170000Z" work-start="20120307T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="1" type="FS"/>
+        <predecessor id="1" predecessor-id="34" type="FS"/>
+        <predecessor id="1" predecessor-id="36" type="FS"/>
+      </predecessors>
+    </task>
+  </tasks>
+  <resource-groups/>
+  <resources>
+    <resource id="1" name="Java Developer Kit" short-name="JDK" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource id="2" name="Java Mobile Edition" short-name="J2ME" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource id="3" name="Servidor de aplicaciones jBoss" short-name="jBoss" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource id="4" name="Eclipse IDE" short-name="Eclipse IDE" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource id="5" name="BlackBerry JDE" short-name="BlackBerry JDE" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource id="6" name="BlackBerry Smartphone Simulator" short-name="BlackBerry Smartphone Simulator" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource id="7" name="Smartphones de Prueba" short-name="Smartphones" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource id="8" name="Servidor de aplicaciones (PC)" short-name="Servidor de aplicaciones" type="2" units="0" email="" note="" std-rate="0"/>
+  </resources>
+  <allocations/>
+</project>

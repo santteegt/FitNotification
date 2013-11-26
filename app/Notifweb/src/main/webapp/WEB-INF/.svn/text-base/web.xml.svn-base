@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <display-name>FitNotification</display-name>
+    <!-- <session-timeout>30</session-timeout> -->
+
+    <servlet>
+        <servlet-name>MainServlet</servlet-name>
+        <servlet-class>com.fitnotif.web.servlet.MainServlet</servlet-class>
+        <!-- <load-on-startup>1</load-on-startup> -->
+        <!-- <init-param>
+        <param-name>name</param-name>
+        <param-value>value</param-value>
+        </init-param> -->
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MainServlet</servlet-name>
+        <url-pattern>/proc/*</url-pattern>
+    </servlet-mapping>
+    <listener>
+      <listener-class>
+         net.sourceforge.wurfl.core.web.WURFLServletContextListener
+      </listener-class>
+    </listener>
+    <context-param>
+      <param-name>wurfl</param-name>
+      <param-value>/WEB-INF/wurfl-2.2.zip</param-value>
+    </context-param>
+    <security-constraint>
+       <display-name>Security Constraint</display-name>
+       <web-resource-collection>
+          <web-resource-name>Protected Area</web-resource-name>
+          <!-- Define the context-relative URL(s) to be protected -->
+          <url-pattern>/*</url-pattern>
+          <!-- If you list http methods, only those methods are protected -->
+       </web-resource-collection>
+       <!-- Anyone with one of the listed roles may access this area -->
+       <!-- <auth-constraint>          
+          <role-name>source</role-name>
+       </auth-constraint> -->
+       <user-data-constraint>
+          <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+       </user-data-constraint>
+    </security-constraint>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+</web-app>

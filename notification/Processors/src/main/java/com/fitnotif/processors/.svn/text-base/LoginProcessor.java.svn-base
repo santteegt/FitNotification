@@ -1,0 +1,153 @@
+package com.fitnotif.processors;
+
+import com.fitnotif.common.DatesHelper;
+import com.fitnotif.common.NotificationException;
+import com.fitnotif.notification.Column;
+import com.fitnotif.notification.Notification;
+import com.fitnotif.notification.Register;
+import com.fitnotif.notification.Request;
+import com.fitnotif.notification.emuntypes.ConfPagesTypes;
+import com.fitnotif.notification.emuntypes.DeviceFields;
+import com.fitnotif.persistence.tablas.TUsuarioDispositivos;
+import com.fitnotif.persistence.tablas.TUsuarioPassword;
+import com.fitnotif.persistence.tablas.TUsuarios;
+import com.fitnotif.persistence.util.HibernateUtil;
+import com.fitnotif.tables.helper.DeviceHelper;
+import com.fitnotif.tables.helper.LoginHelper;
+import com.fitnotif.tables.helper.UserHelper;
+import com.fitnotif.notification.emuntypes.OperationTypes;
+import com.fitnotif.notification.emuntypes.UserTypes;
+import com.fitnotif.tables.helper.ParameterHelper;
+import com.fitnotif.util.DeviceStatus;
+
+/**
+ * Clase que verifica los credenciales del usuario cuando este inicia sesion.
+ * Si los credenciales son correctos, devuelve las autorizaciones pendientes del usuario.
+ * @author malgia
+ * @version 1.0
+ */
+public class LoginProcessor implements Processor{
+     
+    /**
+     * Proceso normal
+     * Valida el usuario, la contraseña y devuelve las autorizaciones pendientes
+     * @param request
+     * @return 
+     */
+    
+    @Override
+    public Request process(Request request) {
+        Notification notification=(Notification) request;
+        notification.deleteAllPages();
+        String username=notification.getUser();
+        String password=notification.getPassword();
+        String ip=notification.getIp();
+        String device=notification.getDevice();
+        TUsuarios user=null;
+        user=UserHelper.getUser(username);
+        if(user==null){
+           throw new NotificationException("USR001", "EL USUARIO {0} NO EXISTE O NO ESTA VIGENTE", username);
+        }
+        if(!user.getActivo()){
+            throw new NotificationException("USR002", "EL USUARIO {0} NO ESTA ACTIVO", username);
+        }            
+        if(this.validatePassword(username, password)){
+            if(this.isFirstLogin(password) || this.isPasswordExpired(username)){
+                notification.setOperation(OperationTypes.CHANGEPWD.getType());
+                if(user.getFkcrol()==UserTypes.ADMIN.getRole()){
+                    return notification;
+                }
+            }else{
+                Boolean extraDevice=this.validateDevice(username, ip, device);
+                notification=ListDevicesProcessor.fillDevices(notification);
+                if(extraDevice){
+                    Integer nextRegister = ParameterHelper.getIntegerValue("maxdev")+1;
+                    Register deviceReg=new Register(nextRegister.toString());
+                    deviceReg.addColumn(new Column(DeviceFields.IPADDRESS.getField(), ip));
+                    deviceReg.addColumn(new Column(DeviceFields.MODEL.getField(), device));
+                    deviceReg.addColumn(new Column(DeviceFields.STATUS.getField(), DeviceStatus.NEW.getType()));   
+                    String fecha=DatesHelper.getCurrentTimeStamp().toString();
+                    deviceReg.addColumn(new Column(DeviceFields.CONECTION_DATE.getField(), fecha.substring(0, fecha.indexOf('.'))));
+                    notification.getPageById(ConfPagesTypes.DEVICES.getPage()).addRegister(deviceReg);
+                }
+            }
+        }else{
+            throw new NotificationException("USR003", "LA COMBINACIÓN DE USUARIO Y CONTRASEÑA ES INCORRECTA PARA {0}", username);
+        }
+        notification=UpdatePasswordProcessor.fillUserInfo(notification);
+        return notification;
+    }
+    
+    /**
+     * Método que valida la contraseña
+     * @param username
+     * @param password
+     * @return
+     */
+    private Boolean validatePassword(String username, String password){
+        Boolean valid=false;
+        TUsuarioPassword userPassword=LoginHelper.getUserPassword(username);
+        if(userPassword==null){
+            throw new NotificationException("PWD001", "EL USUARIO {0} NO TIENE CONTRASEÑA", username);
+        }
+        if(userPassword.getPassword().compareTo(password)==0){
+            valid=true;
+        }
+        return valid;
+    }
+    
+    /**
+     * Método que valida el dispositivo con el que se accede a la aplicacion
+     * @param username
+     * @param ip
+     * @param device
+     * @return
+     */
+    private Boolean validateDevice(String username, String ip, String device){
+        TUsuarioDispositivos userDevice=DeviceHelper.getDevice(username, ip, device);
+        Integer maxDevices = ParameterHelper.getIntegerValue("maxdev");
+        if(userDevice==null){
+            if(DeviceHelper.countDevices(username)>=maxDevices && UserHelper.getUser(username).getFkcrol()!=UserTypes.ADMIN.getRole()){
+                return true;
+            }else{         
+                DeviceHelper.saveNewDevice(username,ip,device);
+                return false;
+            }
+        }
+        if(userDevice.getEstado().compareTo(DeviceStatus.INACTIVE.getType())==0){
+            throw new NotificationException("DEV001", "LA IP {0} NO SE ENCUENTRA ACTIVA", ip);
+        }else{
+            userDevice.setFconexion(DatesHelper.getCurrentTimeStamp());
+            HibernateUtil.saveOrUpdate(userDevice);
+        }
+        return false;
+    }    
+    
+    /**
+     * Método que verifica si es la primera vez que el usuario accede a la aplicación
+     * @param password
+     * @return 
+     */
+    private Boolean isFirstLogin(String password){
+        String defaultPassword=ParameterHelper.getStringValue("password");
+        if(password.compareTo(defaultPassword)==0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+     /**
+     * Método que verifica si la contraseña ha caducado
+     * @param password
+     * @return 
+     */
+    private Boolean isPasswordExpired(String username){
+        TUsuarioPassword userPassword=LoginHelper.getUserPassword(username);
+        if(userPassword!=null && userPassword.getFcaducidad().compareTo(DatesHelper.getCurrentTimeStamp())<0){
+            return true;
+        }
+        return false;
+    }
+    
+}

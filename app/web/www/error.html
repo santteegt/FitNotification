@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+	<!-- <title>FitNotification-Mobile</title> -->        
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <meta charset="UTF-8">
+	<link rel="stylesheet" href="css/jquery.mobile-1.0.1.min.css" />
+	<link rel="stylesheet" href="css/custom.css" />
+	<script type="text/javascript" src="javascript/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="javascript/jquery.mobile-1.0.1.own.min.js"></script>
+        <script type="text/javascript" src="javascript/error.js"></script>
+        
+</head> 
+
+<body ontouchmove="blockMove()"> 
+    
+    <!-- <div id="error" data-role="dialog" data-url="error.html" data-external-page="true" tabindex="0" class="ui-page ui-body-c ui-overlay-a ui-dialog ui-page-active" role="dialog" style="min-height: 320px; ">
+	
+		<div data-role="header" data-theme="a" class="ui-corner-top ui-overlay-shadow ui-header ui-bar-a" role="banner">
+                    <a id="close" data-rel="back" data-icon="delete" data-iconpos="notext" class="ui-btn-left ui-btn ui-btn-icon-notext ui-btn-corner-all ui-shadow ui-btn-up-a" data-theme="a">
+                        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+                            <span class="ui-btn-text">Cerrar</span>
+                            <span class="ui-icon ui-icon-delete ui-icon-shadow"></span>                             
+                        </span>
+                    </a>
+			<h1 class="ui-title" tabindex="0" role="heading" aria-level="1">Error</h1>
+		</div>
+
+		<div data-role="content" data-theme="c" class="ui-overlay-shadow ui-corner-bottom ui-content ui-body-c" role="main">                    
+                    <span id="message"></span>
+                    <div data-role="collapsible">
+                       <h3>Ver Stacktrace</h3>
+                       <pre id="stack"></pre>
+                    </div>
+		</div>
+	</div> -->
+        <div id="error" data-role="page" style="background-image:-webkit-linear-gradient(#000,#ddd)">
+        <div role="dialog" class="ui-dialog-contain ui-corner-all ui-overlay-shadow" id="errorm">
+	
+		<div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner">
+                    <a href="#" data-rel="back" data-icon="delete" data-iconpos="notext" class="ui-btn-left ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-notext" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a" title="Close">
+                        <span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Close</span>
+                            <span class="ui-icon ui-icon-delete ui-icon-shadow">&nbsp;</span>                            
+                        </span>
+                    </a>
+                    <h1 class="ui-title" role="heading" aria-level="1">Error</h1>
+
+		</div>
+
+		<div data-role="content" data-theme="c" class="ui-corner-bottom ui-content ui-body-c" role="main">
+                    <span id="message"></span>
+                    <div data-role="collapsible">
+                       <h3>Ver Stacktrace</h3>
+                       <pre id="stack"></pre>
+                    </div>			
+		</div>
+	</div>
+        </div>
+</body>
+</html>

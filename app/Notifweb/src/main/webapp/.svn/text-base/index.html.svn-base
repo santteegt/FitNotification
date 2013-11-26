@@ -1,0 +1,72 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>FitNotif</title>
+	<meta name="viewport" content="width = device-width, initial-scale= 1 , user-scalable=0"> 
+        <meta charset="UTF-8">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="css/jquery.mobile-1.0.1.min.css" />
+        <link rel="stylesheet" href="css/jquery.qtip.min.css" />        
+	<link rel="stylesheet" href="css/custom.css" />        
+	<script type="text/javascript" src="javascript/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="javascript/initjqm.js"></script>
+	<script type="text/javascript" src="javascript/jquery.mobile-1.0.1.own.min.js"></script>
+        <script type="text/javascript" src="javascript/jquery.qtip.own.min.js"></script>         
+        <script type="text/javascript" src="javascript/util.js"></script>
+        <script type="text/javascript" src="javascript/Ingresar.js"></script>
+        <link rel="apple-touch-icon" href="css/images/icon-57x57.png" />
+        <link rel="apple-touch-startup-image" href="css/images/splash-screen-320x460.png" />
+</head> 
+
+<body ontouchmove="blockMove()">
+    <div data-role="page" id="welcome" data-dom-cache="true"> 
+        
+        <div data-role="header" class="barra">
+                <img src="css/images/fitlogo.png"/>
+                <span >FitNotification</span>
+        </div>
+        <div data-role="content" id="welcomec">
+            <div class="barra" >
+                <a href="#login" class="barra" data-role="button" data-inline="true" data-transition="fade">ENTRAR</a>                
+            </div>            
+            <!-- <a href="entorno.html" data-prefetch style="display: none"></a>
+            <a href="error.html" data-prefetch style="display: none"></a> -->
+        </div>         
+        <div id="popup-qtip" data-role="footer" class="footer-bottom">
+            <span style="display: none">+</span>                    
+        </div> 
+        
+    </div>
+    
+    
+    <div data-role="page" id="login" data-title="FitNotification-Mobile" data-dom-cache="true"> 
+        <div data-role="header" class="barra">
+
+                <img src="css/images/fitlogo.png"/>
+                <span >FitNotification</span>			
+
+        </div>
+        <div data-role="content">
+            <div class="barra" id="titulo">Bienvenido</div>
+            <form id="loginf" action="" autocomplete="off"  data-ajax="false">
+                <div data-role="fieldcontain">
+                    <label for="text">Usuario</label>
+                    <input id="text" name="username" type="text" placeholder="USUARIO" style="text-transform:uppercase" value=""/>
+                    <label for="text2">Contrase&ntilde;a</label>
+                    <input id="text2" type="password" name="password" placeholder="PASSWORD" value="" />                            
+                </div>
+                <div class="barra" >
+                    <button id="submit" type="submit" data-role="button" data-inline="true" data-transition="fade">Ingresar</button>
+                </div>    
+            </form>            
+        </div> 
+        <div id="status" data-role="footer" class="footer-bottom status status-bar-ok">
+            <span>Bantec Inc.</span>                    
+        </div> 
+    </div>
+    
+    <div class="spinning"></div>    
+
+</body>
+</html>

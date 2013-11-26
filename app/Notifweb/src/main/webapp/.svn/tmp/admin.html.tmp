@@ -1,0 +1,149 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+        <meta charset="UTF-8">
+	<meta name="viewport" id="view-p" content="width=device-width, user-scalable=0, initial-scale=1;"> 
+	<link rel="stylesheet" href="css/jquery.mobile-1.0.1.min.css" />
+	<link rel="stylesheet" href="css/custom.css" />
+	<script type="text/javascript" src="javascript/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="javascript/initjqm.js"></script>
+	<script type="text/javascript" src="javascript/jquery.mobile-1.0.1.own.min.js"></script>
+        <script type="text/javascript" src="javascript/jquery.qtip.own.min.js"></script> 
+        <script type="text/javascript" src="javascript/util.js"></script>
+        <script type="text/javascript" src="javascript/admin.js"></script>
+        
+</head> 
+
+<body> 
+	<div data-role="page" id="configuracion" data-title="Configuracion" class="fitpage"> 
+		<div data-role="header" class="barra">                                        
+                    <img src="css/images/logo.png"/>
+                    <span >Administrador</span>	
+                    <a id="logout" href="" data-icon="grid" class="ui-btn-right">Salir</a>
+		    <div data-role="navbar">
+                        <ul>
+                            <li><a href="#configuracion" id="conf-btn" class="ui-btn-active">Configuración</a></li>
+                            <li><a href="#sesiones" id="sesiones-btn">Sesiones Activas</a></li>
+                            <li><a href="#contrasena" id="contrasena-btn">Reiniciar Contraseña</a></li>                                
+                        </ul>
+                    </div>			
+		</div>
+		<div data-role="content">
+			<div class="barra" id="titulo" style="font-size: 12px"><span>Configuración</span></div>
+			<div data-role="collapsible" data-theme="a" data-content-theme="c">		
+			   <!--bankparameters-->
+			   
+			   <h3>UCI</h3>
+			   <div data-role="fieldcontain">
+			        <label for="uci-ip-txt">IP:</label>
+				<input id="uci-ip-txt" name="uci-ip" type="text" value=""/>		
+				<label for="uci-port-txt">Puerto:</label>
+				<input id="uci-port-txt" name="uci-port" type="text" value=""/>
+			   </div>
+		   	</div>
+			<div data-role="collapsible" data-theme="a" data-content-theme="c">
+                           <!--notificationlistener, processors-->			   
+		 	   <h3>Servidor</h3>
+			   <div data-role="fieldcontain">
+				<label for="web-ip-txt">IP Web:</label>
+				<input id="web-ip-txt" name="web-ip" type="text" value=""/>
+				<label for="web-port-txt">Puerto Web:</label>
+				<input id="web-port-txt" name="web-port" type="text" value=""/>
+ 			   </div>
+		   	</div>
+			<div data-role="collapsible" data-theme="a" data-content-theme="c">
+                           <!--processors, notificationlistener-->
+			   <h3>Sesiones y Usuarios</h3>
+			   <div data-role="fieldcontain">
+				<label for="session-timeout-txt">Tiempo de Sesión (minutos):</label>
+				<input id="session-timeout-txt" name="session-timeout" type="text" value=""/>
+				<label for="user-expiredays-txt">Vigencia Usuario (días):</label>
+				<input id="user-expiredays-txt" name="user-expiredays" type="text" value=""/>
+				<label for="password-expiredays-txt">Vigencia Contraseña (días):</label>
+				<input id="password-expiredays-txt" name="password-expiredays" type="text" value=""/>
+				<label for="password-txt">Contraseña Inicial MD5:</label>
+				<input id="password-txt" name="password" type="text" value=""/>
+			   </div>
+		   	</div>
+			<div data-role="collapsible" data-theme="a" data-content-theme="c">
+                           <!--smtpserver-->			   
+			   <h3>Correo Electrónico</h3>
+			   <div data-role="fieldcontain">
+				<label for="smtp-host-txt">Host:</label>
+				<input id="smtp-host-txt" name="smtp-host" type="text" value=""/>
+				<label for="smtp-port-txt">Puerto:</label>
+				<input id="smtp-port-txt" name="smtp-port" type="text" value=""/>
+				<label for="smtp-user-txt">Usuario:</label>
+				<input id="smtp-user-txt" name="smtp-user" type="text" value=""/>
+				<label for="smtp-password-txt">Password:</label>
+				<input id="smtp-password-txt" name="smtp-password" type="text" value=""/>
+			   </div>				
+		   	</div>
+
+			<div data-role="collapsible" data-theme="a" data-content-theme="c">
+                           <!--token-->			   
+			   <h3>Autorizaciones</h3>
+			   <div data-role="fieldcontain">
+				<label for="token-timeout-txt">Vigencia Token (minutos):</label>
+				<input id="token-timeout-txt" name="token-timeout" type="text" value=""/>
+			   </div>
+		   	</div>
+			<div class="barra" >
+                    		<button id="submit" type="submit" data-role="button" data-inline="true" data-transition="fade">Guardar</button>
+               		</div> 
+			</form>
+		</div>  
+	</div>
+    
+
+	<div data-role="page" id="sesiones" data-title="Sesiones Activas" class="fitpage"> 
+		<div data-role="header" class="barra">                                        
+                    <img src="css/images/logo.png"/>
+                    <span >Administrador</span>	
+                    <a id="logout" href="" data-icon="grid" class="ui-btn-right">Salir</a>
+		    <div data-role="navbar">
+                        <ul>
+                            <li><a href="#configuracion" id="conf-btn">Configuración</a></li>
+                            <li><a href="#sesiones" id="sesiones-btn" class="ui-btn-active">Sesiones Activas</a></li>
+                            <li><a href="#contrasena" id="contrasena-btn">Reiniciar Contraseña</a></li>                                
+                        </ul>
+                    </div>			
+		</div>
+		<div data-role="content">
+		   <div class="ui-grid-b">
+			<div class="ui-block-a"><strong>Usuario:</strong></div>
+			<div class="ui-block-b"><strong>Fecha de Inicio:</strong></div>
+		   </div>
+		   <div class="ui-grid-b">
+			<div class="ui-block-a">JUAN</div>
+			<div class="ui-block-b">26-05-2012</div>
+			<div class="ui-block-c"><button id="expire" type="submit" data-role="button" data-inline="true" >Expirar</button></div>
+		   </div>	  
+		</div>  
+	</div>
+   
+    	<div data-role="page" id="contrasena" data-title="Sesiones Activas" class="fitpage"> 
+		<div data-role="header" class="barra">                                        
+                    <img src="css/images/logo.png"/>
+                    <span >Administrador</span>	
+                    <a id="logout" href="" data-icon="grid" class="ui-btn-right">Salir</a>
+		    <div data-role="navbar">
+                        <ul>
+                            <li><a href="#configuracion" id="conf-btn">Configuración</a></li>
+                            <li><a href="#sesiones" id="sesiones-btn">Sesiones Activas</a></li>
+                            <li><a href="#contrasena" id="contrasena-btn" class="ui-btn-active">Reiniciar Contraseña</a></li>                                
+                        </ul>
+                    </div>			
+		</div>
+		<div data-role="content">
+		   <div data-role="fieldcontain">
+			<label for="user">Usuario:</label>
+			<input id="user" name="user" type="text" value="" style="text-transform:uppercase"/>
+		   </div>
+		   <div class="barra" >
+		   	<button id="reset" type="submit" data-role="button" data-inline="true">Reiniciar</button>
+		   </div>
+		</div>  
+	</div>
+</body>
+</html>

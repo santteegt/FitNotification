@@ -1,0 +1,153 @@
+package com.fitnotif.web.exception;
+
+import com.fitnotif.notification.Request;
+import com.fitnotif.web.Controller;
+import com.fitnotif.web.WebEnviroment;
+import com.fitnotif.web.data.WebRequest;
+import com.fitnotif.web.data.WebResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Manejador de errores
+ * @author santiago
+ * @version 1.0
+ */
+public final class ErrorHandler {
+    
+    private ErrorHandler() {
+    }
+
+    public static WebResponse procesar(Controller controller, WebRequest request,
+            WebResponse originResponse, HttpServletResponse response,
+            Throwable t) {
+        Request responseData;
+        Boolean onController = true;
+        if(originResponse == null){
+            responseData = WebEnviroment.getTransportData();
+            onController = false;
+        }else{
+            responseData = originResponse.getTransportData();
+        }
+                
+        WebResponse respuesta = new WebResponse(responseData,request);
+        StringWriter stackTrace = new StringWriter();
+        PrintWriter pw = new PrintWriter(stackTrace);
+        String mensajeUsuario = "";
+        String mensaje = "Error al ejecutar un proceso";
+        /*TransporteDB transporteDB = respuestaOriginal != null
+                ? respuestaOriginal.getTransporteDB() : respuesta.
+                getTransporteDB();*/
+
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+
+        t.printStackTrace(pw);
+        WebEnviroment.getTransportData().setStacktrace(stackTrace.toString());
+        
+
+        /*if (respuestaOriginal != null && transporteDB != null) {
+            pw.println("Causado por:");
+            pw.println(transporteDB.getStackTrace());
+            mensajeUsuario = transporteDB.getMessage();
+        } else if (t instanceof ErrorWeb) {
+            ErrorWeb errorWeb = (ErrorWeb) t;
+
+            if (errorWeb.getTransporteDB() != null) {
+                transporteDB = errorWeb.getTransporteDB();
+                mensajeUsuario = transporteDB.getMessage();
+            } else {
+                mensajeUsuario = t.getLocalizedMessage();
+            }
+        } else {*/
+            mensajeUsuario = t.getMessage();
+            WebEnviroment.getTransportData().setStatus(mensajeUsuario);
+        //}
+
+        /*if (pedido != null) {
+            MessageType tipo = pedido.getTransporteDB().getMessageType();
+
+            mensaje += String.format("\nTipo %s (%s)", pedido.getTipoPedido(),
+                    tipo);
+
+            if (pedido.getTransporteDB() != null) {
+                mensaje += String.format("-> %s", pedido.getTransporteDB().
+                        getResponseCode());
+            }
+        }*/
+
+        /*if (respuestaOriginal != null && transporteDB != null) {
+            MessageType tipo = transporteDB.getMessageType();
+            String codigo = transporteDB.getResponseCode();
+
+            mensaje += String.format("\nRespuesta: %s -> %s", tipo, codigo);
+
+            mensaje += "\n" + transporteDB.getMessage();
+            mensaje += "\n" + transporteDB.getStackTrace();
+        }*/
+
+        /*if (!(t instanceof MensajeWeb)) {
+            Debug.error(mensaje, t);
+        }*/
+
+        if (controller != null && onController) {
+            controller.onError(respuesta, mensajeUsuario, stackTrace.toString());
+        }
+
+        if (respuesta.getContenido() == null) {            
+            String error = request.getHttpServletRequest().getContextPath()
+                    + "/error.html";// + Registro.getRegistro().getSecuencia();
+            try {                
+                response.sendRedirect(error);
+            } catch (IOException e) {
+                //Debug.error("No se pudo enviar un redirect!", e);
+            }
+        }
+
+        /*if (pedido.getTransporteDB() != null) {
+            Registro.getRegistro().setCodigoError(pedido.getTransporteDB().
+                    getResponseCode());
+        }
+
+        Registro.getRegistro().setMensajeError(t.getLocalizedMessage());
+
+        if (!isError(Registro.getRegistro().getCodigoError())) {
+            Registro.getRegistro().setCodigoError("-1");
+        }
+
+        Registro.getRegistro().setStackTrace(stackTrace.toString());
+        */
+        pw.close();
+        return respuesta;
+    }
+
+    /**
+     * Revisa el codigo de respuesta y lanza una excepcion
+     *
+     * @param respuesta
+     * @throws ErrorWeb
+     */
+    public static void checkOkCodes(WebResponse respuesta) {
+        
+        String codigo = respuesta.getTransportData().getStatus();//respuesta.getTransporteDB().getResponseCode();
+        if (isError(codigo)) {
+            throw new WebError(respuesta);
+        }
+    }
+
+    /**
+     * Revisa que el codigo de respuesta sea positivo o de error
+     *
+     * @param respuesta
+     * 
+     * @throws boolean | true es un error, false no es un error
+     */
+    public static boolean isError(String codigo) {
+        // Esto debe ser igual a Util.isError en util.js
+        return codigo != null && codigo.compareTo("OK")!=0;//!codigo.matches("(?i)0|.*-0|ok-.*");        
+    }
+    
+    
+    
+}

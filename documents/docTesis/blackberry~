@@ -1,0 +1,74 @@
+The BlackBerry® platform supports several different ways of developing applications, themes, rich mobile websites and widgets. Each methodology has unique strengths, but all of them will help you leverage the BlackBerry solution’s easy connectivity and robust security.
+
+BlackBerry Web Development
+
+BlackBerry web development is ideal for developers who are new to the BlackBerry solution, yet sophisticated enough for advanced applications.
+
+    Create browser-based applications and deploy them with minimal effort
+    Leverage industry standards from HTML to AJAX
+    Push data to user devices and leverage offline queuing
+
+Enjoy unparalleled development flexibility, power and control with Java® application development.
+
+    Create standards-based applications using MIDP 2.0 and CLDC 1.1 or Research In Motion’s (RIM’s) extensive UI Library
+    Work within a variety of different development environments, including Eclipse® and NetBeans®
+---------
+
+What's a WebWorks application?
+
+A BlackBerry WebWorks application is simply a standalone web application that you can deploy to a BlackBerry smartphone or tablet.
+What's the big deal?
+
+Well firstly, a BlackBerry WebWorks application is a standalone application, which means you don't have to point to a remote server to load a web page or application (unless you want to). In this case, the application lives on the BlackBerry device. It's essentially a bundle of web assets that are packaged into a container that can be viewed by a "headless browser" -- the WebKit engine container.
+
+Secondly, you can take advantage of standard web technologies, like CSS, HTML5, and JavaScript to build your application. You can also take advantage of popular mobile web frameworks such as Sencha, PhoneGap, jQuery, or Dojo.This allows you to create applications quicker because you can reuse your existing web experience and web assets.
+
+Most importantly, you can add native functionality to your HTML5 application by using the BlackBerry WebWorks platform. You can get full access to the platform APIs through JavaScript wrappers, which you can use to extend your application and take advantage of BlackBerry-specific features (for example, BBM, PIM, media, hardware), providing an integrated experience to the BlackBerry user. And all of this is open source - BlackBerry WebWorks is an open source project on GitHub.
+
+What tools do I need?
+
+You can create your applications in any editing tool that you like or already use.
+Ripple logo
+
+To test BlackBerry WebWorks applications, it couldn't be simpler. Using the Ripple emulator, you can point to a website (local or remote) that's running your BlackBerry WebWorks application and emulate the entire BlackBerry WebWorks environment without having to compile your code or launch a simulator. This provides a similar experience to desktop browser development. So, making changes is as simple as editing your source code and pressing refresh in the Ripple emulator.
+
+Packaging and signing can also be done in the Ripple emulator. To package and sign your application, make sure that you installed the BlackBerry WebWorks SDK, and that you configured the package settings in Ripple.
+
+To deploy your application to BlackBerry smartphone or tablet, you can use the BlackBerry WebWorks SDK.
+
+
+What's the process for creating an application?
+
+Here's what the process looks like from a high-level:
+
+    Create your application web files (for example, HTML, CSS, and JavaScript).
+    Test and debug your application with the Ripple emulator. For more information, see Getting started with the Ripple emulator and Creating a WebWorks app.
+    Create a WebWorks configuration document (config.xml) that contains details about your application. For more information, see Creating a WebWorks configuration document.
+    Package your application using the Ripple emulator (make sure that you have the BlackBerry WebWorks SDK installed). For more information, see Packaging your app in Ripple.
+    For tablet applications, deploy the .bar file to a BlackBerry tablet or simulator. For smartphone applications, deploy the .cod file to a BlackBerry smartphone or simulator. For more information, see the testing section.
+
+How do I distribute my application?
+
+BlackBerry WebWorks applications are packaged the same way as native BlackBerry smartphone and tablet applications. Applications for the smartphone can be distributed via a website, BlackBerry Desktop Manager or the BlackBerry App World storefront. Applications for the BlackBerry tablet can be distributed via the BlackBerry App World storefront only. 
+
+
+---------
+
+
+Java Application Development Overview
+
+Leverage your Java development skills and a rich set of BlackBerry APIs to build applications your users will love. Developing in Java allows you to create diverse, feature-rich apps for BlackBerry smartphones. Whether you want to push data, use streaming media or GPS navigation, create games or extend enterprise services, the development tools available for the BlackBerry platform provide you with the APIs to develop powerful, full-featured applications.
+
+With the BlackBerry® Java® SDK v7.0, you can incorporate the features of BlackBerry® 7 in your app, including enhancements to the BlackBerry® Browser, Open GL ES 2.0, HD video recording, Magnatometer (compass) API and NFC (Near Field Communication).
+
+The new BlackBerry Java SDK v7.1 provides the tools and APIs to allow applications to be developed using the new functionality available in v7.1 software—primarily NFC P2P and the FM Radio. The product also addresses some of the issues found by developers of Augmented Reality apps and NFC wallet apps, both of which were use cases introduced by the BlackBerry Java SDK v7.0.
+
+Write your applications using the Eclipse® environment using the latest software, the BlackBerry® Java® Plug-in for Eclipse®, or the legacy BlackBerry® Java® Development Environment (BlackBerry JDE).
+
+
+biblio
+http://us.blackberry.com/developers/started/bbdevapproach.jsp
+https://bdsc.webapps.blackberry.com/html5/documentation/ww_getting_started/what_is_a_webworks_app_1845471_11.html
+https://bdsc.webapps.blackberry.com/html5/documentation/ww_publishing/distributing_your_app_1866990_11.html
+https://bdsc.webapps.blackberry.com/html5/documentation/ww_publishing/signing_your_app_1920008_11.html
+

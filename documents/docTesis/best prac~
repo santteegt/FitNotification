@@ -1,0 +1,233 @@
+La w3c define un documento de recomendaciones para las mejores practicas en el desarrollo de aplicaciones web movil. El objetivo de este es ayudar al desarrollo de de aplicaciones web movil enriquecidas y dinamicas. Conlleva las practicas mas relevantes en la ingenieria, promoviendo las que permiten una mejor experiencia de usuario y a su vez, nos prevee contra aquellas que son consideradas perjudiciales. Aunque el enfoque del documento son las mejores practicas para aplicaciones que se ejecutan en un navegador, en muchos casos estas recomendaciones son igualmente aplicables en otros tipos de ejecucion web, como las aplicaciones denominadas Widgets. Las mejores practicas asume que los dispositivos tienen soporte para XHTML estandar, Javascript y capacidades CSS.
+
+DATOS DE LA APLICACION
+
+Uso escaso de Cookies
+
+Las Cookies son un método efectivo para el almacenamiento corto de información de estado en el cliente. Estas son comúnmente utilizadas para almacenar tokens o claves que representan una identidad de usuario para permitir un inicio de sesión automático. La información almacenada en las Cookies son enviadas al servidor en cada petición realizada, y el uso excesivo de ellas podría causar un impacto negativo, particularmente en las redes móviles. A su vez, en el contexto móvil, el soporte de Cookies puede estar deshabilitado ya sea en la configuración del dispositivo o en la red móvil. Por esta razón, las aplicaciones deben ser funcionales aun cuando las Cookies no esten disponibles.
+
+
+Uso apropiado de las tecnologías de almacenamiento de datos locales en el cliente
+
+Si el dispositivo tiene soporte, las APIs de almacenamiento de información en el lado del cliente proveen un mecanismo para guardar cantidades mas extensas de datos. El uso de esta técnica brinda una paridad entre las aplicaciones Web y las aplicaciones nativas en términos tiempos de inicio de respuesta: Los datos de la aplicación almacenados localmente pueden ser mostrados de manera inmediata cuando la aplicacion es iniciada, mientras que realizando actualizaciones y replicando cambios al servidor en un proceso en segundo plano mientras la conexion este disponible, la aplicación puede continuar su operación aunque la señal de red no sea fiable.
+
+
+Replicar datos locales al servidor si es necesario.
+
+Si una API de almacenamiento en el lado del cliente utiliza datos que no son visibles en otros dispositivos del usuario, es apropiado para algunas formas de datos (p.e. preferencias, estados) enviar estos de regreso al servidor para proveer una vista consistente entre dispositivos y hacer posible la recuperación de datos si el dispositivo se pierde o daña.
+
+
+SEGURIDAD Y PRIVACIDAD
+
+No ejecutar datos JSON no confiables
+
+Una técnica común de transmision de datos es el uso de JSON, donde el cliente utiliza la funcion eval() de Javascript para parsearlo, lo que lo convierte en una tecnica poderosa. Sin embargo, la ejecución directa sobre datos que contienen codigo generado, los cuales representan un riesgo de seguridad que se puede tornar muy peligroso en dispositivos móviles, donde la información personal podría estar expuesta. Para evitar esto, es mejor utilizar una implementacion de un parser, ya que no es posible asegurarse de que los datos dentro de un JSON esten correctamente escapados.
+
+
+CONTROL Y CONSCIENCIA AL USUARIO
+
+Permite al usuario controlar el comportamiento de la aplicación que podría ser no tan aparente, como el acceso a la red o a los datos del dispositivo (p.e. imágenes, contactos, ubicación, conectividad)
+
+Es preferible confiar en las funcionalidades nativas del navegador para notificar al usuario sobre estas actividades, sin embargo las mejores prácticas promueven el aviso sobre estas actividades dentro del comportamiento de la aplicación, en situaciones donde la funcionalidad nativa no es suficiente.
+
+
+Asegurarse que el usuario este informado acerca del uso de información personal y del dispositivo.
+
+Se recomienda asegurarse que el usuario este informado si la aplicación necesita algun acceso a la información personal o del dispositivo. Estos avisos se pueden proveer cuando el usuario accede por primera vez a la aplicación, o en el primer acceso a la información, dando la suficiente información para que el usuario juzgue en dar o no permisos. En muchos casos es mejor el uso de las APIs que proveen acceso a la información dentro del dispositivo, mediante el uso de interfaces nativas para que sea claro para el usuario, y se lo realice una sola vez.
+
+
+Permitir la autenticación automática
+
+Si una aplicación require la identificación del usuario es usual presentar al usuario una interfaz para el ingreso de las credenciales y la opción de activar la autenticación automátiva en siguientes usos de la aplicación. Esto es muy importante en dispositivos donde la entrada de datos es un poco dificultosa. Hay que tener en cuenta que si la autenticación automática es habilitada, se debe proveer un enlace para cerrar sesión.
+
+Las credenciales pueden ser almacenadas en una Cookie o en almacenamiento local. Sin embargo, hay que tener en cuenta no almacenar la información de contraseña sin encriptar. Comúnmente un token generado mediante un hash seguro, que podría ser revocado en el servidor, es almacenado localmente para permitir así el inicio de sesión automático.
+
+
+
+USO APROPIADO DE RECURSOS
+
+
+El uso mínimo de memoria, procesador del dispositvo y ancho de banda de la red nos asegura una ejecución liviana y de baja latencia de la aplicación.
+
+Utilizar compresión en la transferencia
+
+La compresión en HTTP 1.1, que utiliza los algoritmos gzip y DEFLATE, es muy soportada. Los servidores Web pueden ser configurados apropiadamente para enviar respuestas comprimidas. Sin embargo, el costo (en tiempo y uso de batería) en descomprimir los datos puede ser balanceados contra la ganancia en eficiencia en transporte. Mientras se configura la compresión en HTTP 1.1 hay que tomar en cuenta:
+	Varios formatos de imagen (JPEGs) no se benefician de la compresión, pero SVG si lo hace
+	Varios otros formatos de medios (p.e. audio, video) no se benefician de la compresión
+	Archivos muy pequeños (p.e. <1k) generalmente no se benefician de la compresión
+
+
+
+Minimizar el tamaño de Datos y de la Aplicación.
+
+Las Pequeñas aplicaciones se descargan y ejecutan mas rápidamente y de forma más eficiente. Es una buena técnica el procesamiento de archivos HTML, JS y CSS para remover espacios en blanco y ser minificados antes de su envio. 
+
+
+Evitar redireccionamientos
+
+El redireccionamiento de peticiones es utilizdo para el intercambio de información entre servidores (p.e. autenticación). El retraso dado por las redirecciones es mucho mas alto sobre las redes moviles, por lo que el número de redireccionamientos se deben mantener al mínimo.
+
+
+Optimizar las peticiones de red
+
+Establecer las conexiones necesarias para poder completar una petición HTTP puede tornarse muy larga en una red movil. Ya que el ancho de banda es mas restringido en este tipo de redes, es preferible hacer pocas y mas largas peticiones. Se deben considerar las siguientes posibilidades al momento de diseñar una aplicación:
+
+	Peticiones en lote: una peticion para mas datos provee una mejor experiencia de usuario, que peticiones pequeñas. Cuando sea posible, enviar en lote multiples peticiones a nivel de aplicación.
+
+	Acelerar peticiones de baja prioridad: en algunas aplicaciones ciertas peticiones pueden ser menos críticas que otras (p.e. peticiones de inicio de sesión). Acelerar las peticiones de baja prioridad nos asegura que estas no bloqueen la red y asi prevenir que peticiones más criticas sean atendidas rápidamente.
+
+	No atender en periodos de inactividad: si la aplicación pide por actualizaciones, se debe monitorizar la actividad de usuario y asi no enviar actualizaciones en periodos de inactividad.
+
+	Contexto del dispositivo: verificar la conectividad del dispotivo para seleccionar un apropiado nivel de interaccion.
+
+
+Minimizar el uso de recursos externos
+
+Una aplicación usualmente requiere un número de recursos (hojas de estilo, sripts, imagenes, etc) las cuales a su vez requieren una petición HTTP. Las peticiones HTTP en una red movil son particularmente costosas, por lo que pocas y largas peticiones son consideradas mejores en lugar de pequeñas peticiones. Para llevar a cabo esto, se puede utilizar alguna implementacion de minificación que combine todos los recursos de su mismo tipo y las una como un solo antes de ser enviado.
+
+
+Agregar imágenes estáticas en un recurso simple compuesto o Sprite
+
+Las aplicaciones usualmente dependen de un número de imágenes estáticas para proveer iconos, botones, etc. Lo mejor es utilizar técnicas CSS y crear Sprites para tener un solo recurso compuesto a ser transferido. Es eficiente combinar imágenes de tamaños y colores similares.
+3.4.6 Aggregate Static Images into a Single Composite Resource (Sprites)
+
+
+Incluir imagenes de fondo dentro de hojas de estilo CSS
+
+Efectos visuales como imagenes de fondo o gradientes pueden ser incluidos en el CSS (utilizando el esquema URI: url('data:image/png;base64, [data]) ) como string en base64 para evitar una petición HTTP por aquellos. La codificación base64 añade cerca de un 10% mas de espacio al tamaño de la imagen despues de la compresión gzip y este costo adicional es muy beneficioso contra los beneficios de una petición por los recursos no comprimidos.
+
+
+No enviar información de Cookies innecesarios
+
+Recursos estáticos no necesitan de cookies, por lo que el desempeño puede ser mejorado si se los trae desde una ruta o un subdominio en donde las cookies esten deshabilitadas. 
+
+
+Mantener un tamaño razonable del DOM
+
+El tamaño en memoria del DOM o Document Object Model puede ser limitado en los dispositivos moviles. Se debe Limitar la cantidad de información de este utlizando paginación u otras técnicas apropiadas.
+
+
+EXPERIENCIA AL USUARIO
+
+3.5.1 Optimize For Application Start-up Time
+
+La experiencia al usuario viene dados por un número de factores que incluye: latencia, métodos de interacción y consistencia de datos. Además esta viene fuertemente influenciada por la ejecución inicial de la aplicación. Aplicaciones Web fuera de línea como HTML5 AppCache brinda a las aplicaciones Web la posibilidad de ser utilizadas aun cuando la cobertura de red sea intermitente. Los siguientes pasos pueden ser considerados para minimizar el tiempo de inicio de las aplicaciones:
+
+	Usar tecnología Offline: AppCache permite a los recursos de la aplicacion ser especificadas y almacenadas localmente, para que esta puedar ser iniciada sin necesidad de una peticion al servidor.
+	Considerar el particionamiento de scripts largos: en aplicaciones complejas, el analisis del código Javascript puede contribuir al costo en tiempo de inicio de la aplicación. Si ciertas funcionalidades son raramente utilizadas, estas pueden ser movidas en scripts separados para ser cargadas bajo demanda, bajando así la cantidad de código que necesita ser analizado al inicio de la aplicación.
+	Usar almacenamiento local: si es apropiado, se puede almacenar una captura del último estado de la aplicación para que puede ser mostrada inmediatamente en el siguiente inicio sin necesidad de hacer una petición al servidor.
+	Minimizar el numero de consultas a almacenamientos locales: un numero considerable de consultas llegaría a afectar el inicio de la aplicación en su latencia. Es recomendable minimizar este tipo de consultas al momento de mostrar por primera vez la aplicación.
+
+
+Minimización de la latencia
+
+La reducción de la latencia en un factor importante en el mejoramiento de la usabilidad de la aplicación. Se pueden utilizar una serie de tecnicas para minimizar la latencia:
+
+	Permitir una renderización incremental: colocar el código Javacript al final de la página y configurar la página para que la información útil que pueda estar disponible sea visible mientras el contenido principal de la aplicación sigue su carga.
+	Mantener al usuario informado de la actividad: utilzar barras de progreso para mantener al usuario informado durante la carga de red y APIs del dispositivo, para que así no piense que el sistema se ha detenido.
+	Evitar recargas de páginas: para reflejar cambios de estado o mostrar vistas distintas dentro de la aplicación, es mejor actualizar las páginas dinámicamente (manipulando el DOM) en lugar de haciendo una recarga.
+	Precargar siguientes probables vistas: precargar datos de ubicaciones utilizadas frecuentemente en la aplicación, permite que esta pueda ser mostrada mas rapidamente cuando el usuario realiza una petición a ellas.
+
+
+
+Diseñar para múltiples métodos de interacción
+
+Los metodos de interacción varían entre dispositivos. Se pueden considerar 3 métodos principales de interacción al diseñar la interfaz de usuario:
+
+	Basado en foco: el navegador se enfoca y salta de elemento en elemento.
+	Basado en puntero: la navegación basada en teclas controla el puntero que puede cubrir cualquier parte de la pantalla.
+	Basado en táctil: los eventos son relacionados directamente al toque y posición de un dedo en la pantalla.
+
+La configuración óptima de los elementos de la interfaz dependen del método de interacción utilizado por el dispositivo. Idealmente, la interfaz de usuario podria ser adaptada basandose en el conocimieto de los métodos de interacción usados por el dispositivo. Si no es posible, la interfaz debe ser diseñada para proveer una buena experiencia para cada una de los distintos métodos.
+
+
+
+
+3.5.4 Preserve Focus on Dynamic Page Updates
+3.5.4.1 What it means
+
+The JavaScript focus method can be used to move the focus to the part of a page that has changed. However, if unexpected, this can confuse or irritate the user, especially if returning to the previous focus is not easy.
+3.5.4.2 How to do it
+
+Use the JavaScript focus method only if it is essential to the use of the application, and does not inhibit user control/interaction.
+3.5.5 Use Fragment IDs to Drive Application View
+
+3.5.5.1 What it means
+
+Web applications can switch views without a full page reload by showing and hiding sections of content. However, this means that the browser <back> button doesn't work by default, and it is not possible to link directly to specific views within an application. Usability is enhanced by enabling both of these features:
+
+    Enabling deep links (e.g. to the content of a specific email) means the user can bookmark this view and return to it quickly;
+    Enabling the browser history provides a natural method to navigate application views that is natively supported by the browser.
+
+3.5.5.2 How to do it
+
+Assign a URI with a distinguishing fragment identifier (e.g. http://myapp.example.org/myapp#view). Use JavaScript to interrogate the browser location in order to determine which view to display.
+
+For further discussion on this topic see: Unique URLs pattern [AJAX-UNIQUE] on the Ajax Design Patterns Web site.
+Note that showing and hiding content in this way can have adverse affects on accessibility if not carefully handled. See WAI-ARIA [ARIA] for more information on writing accessible rich Web applications.
+3.5.6 Make Telephone Numbers "Click-to-Call"
+3.5.6.1 What it means
+
+Standardized URI schemes have been defined for some common device functions, e.g. making phone calls, sending an SMS, and managing address books. These URI schemes, if supported, can enable users to easily use these functions from Web applications.
+3.5.6.2 How to do it
+
+The most broadly supported scheme is tel: as described in RFC3966 [RFC3966]. Code such as the following can be used to enable "Click-to-Call":
+
+<a href="tel:[PHONE-NUMBER]">[PHONE-NUMBER]</a>
+
+Note that [PHONE-NUMBER] should always be entered using the full international prefix (e.g. +1-201-555-0111) to ensure that it works outside of its home country.
+
+Similarly RFC5724 [RFC5724] can be used to send a GSM SMS (text message) as follows:
+
+<a href="sms:[PHONE-NUMBER]?body=[MESSAGE]">[PHONE-NUMBER]</a>
+
+Note that at the time of writing support for this RFC is limited and device compatibility should be verified before deployment.
+3.5.7 Ensure Paragraph Text Flows
+
+3.5.7.1 What it means
+
+On small screens it is important that paragraph text flows both so that it doesn't require horizontal scrolling and so that it will re-flow if the view orientation is changed. See BP1 [MEASURES] for more details.
+
+3.5.7.2 How to do it
+
+Do not use absolute or pixel measures. Use percentage and RELATIVE measures for containers so that text can re-flow automatically.
+3.5.8 Ensure Consistency Of State Between Devices
+
+3.5.8.1 What it means
+
+This recommendation builds on the recommendation in BP1 (5.5.1 Thematic Consistency) and expands it to consider the application preferences, personalization data, and state that form part of the overall experience on a mobile Web application.
+
+User credentials valid on one device should be valid on other devices. User preferences captured on one device should be accessible on other devices. Data updated on one device should be viewable consistently on other devices.
+
+An important example of this is offering a consistent experience where data entered on a desktop is available on a mobile and vice versa.
+
+3.5.8.2 How to do it
+
+For any application data that is not exclusively relevant to the current device, favor storing it on the server so it can be shared by other devices. See 3.1 Application Data for more details.
+3.5.9 Consider Mobile Specific Technologies for Initiating Web Applications
+3.5.9.1 What it means
+
+Network-initiated content delivery ("push") methods allow notifications and updates to be sent to the user even when they are outside of the application context.
+3.5.9.2 How to do it
+
+Push method support may be disclosed through a User Agent Profile [UAPROF] document if published by the device vendor, or through a device classification repository.
+
+If supported by the user agent, options for Push methods include:
+
+    OMA Push: a widely supported enabler providing methods for user-confirmed and automatic content push, directed to mobile browsers and other user-agents. See OMA Push specifications [OMA-PUSH] for more details;
+    SMS;
+    QR Codes;
+    Alternative vendor-specific initiatives.
+
+3.5.10 Use Meta Viewport Element To Identify Desired Screen Size
+3.5.10.1 What it means
+
+Certain classes of browser attempt to display desktop pages on a small screen by automatically zooming the display. This can be problematic for applications that have already been optimized for a small screen. The viewport meta tag tells the device at what scale to render the page.
+3.5.10.2 How to do it
+
+A typical viewport setting looks like this:
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/> ,
+
+and is inserted into the <head> element of the HTML document. This setting informs the browser to always render the page at 100% (e.g. no browser based scaling) and is appropriate for pages specifically designed for the target screen-size.
+

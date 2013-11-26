@@ -1,0 +1,50 @@
+Hoy en dia las aplicaciones mobiles se las puede realizar de dos formas: aplicaciones nativas, que son programas compilados que se ejecutan en el dispositivo nativamente, y aplicaciones web mobiles, que se ejecutan dentro de los navegadores web del dispositivo movil.
+
+Las aplicaciones nativas son las mas usadas estos dias, especialmente por el exito financiero que las empresas han tenido en la tienda de Apple iTunes Store y la tienda de Android. Ademas estas brindan varias ventajas como son su rapidez o el acceso a todas las capacidades que la plataforma brinda. Pero tambien poseen ciertas limitaciones importantes: no son portables. Asi, si se quiere que una aplicacion este disponible para multiples plataformas, se debe escribir en multiples lenguajes, dando como resultado, el tener que mantener varios codigos de la misma aplicacion.
+
+Las aplicaciones web moviles en otro lado, son creadas utilizando HTML5, CSS3 y librerias Javascript, y se ejecutan en los navegadores web del dispositivo movil. Esto significa que solo se debe mantener un codigo fuente, pero en este tipo de aplicaciones aun se necesita tener en cuenta las variaciones de los navegadores entre plataformas.
+
+Una solucion generica a estos dos tipos de punto de vista que se puede tomar, es la utilizacion de una capa de abstraccion de plataforma, mezclada con una libreria para interfaces que funcione en el mayor rango de dispositivos existentes. Asi se tendra un solo codigo de aplicacion que mantener, podra ser ejecutada de forma nativa en distintos dispositivos, con acceso a ciertas capacidades que las plataformas brindan, y su visualizacion se adaptara a la resolucion que el movil posea. A este tipo de aplicaciones se las conoce como Widgets y son aplicaciones de unico proposito. Basadas en tecnologia Web, realizan una tarea en particular pudiendo acceder a las caracteristicas especificas del dispositivo como camara o lista de contactos.
+
+
+Entre las ventajas que brindan los widgets esta:
+La capacidad de ejecutarse como una aplicacion nativa en el movil sin necesidad del uso del navegador web. 
+Es mucho mas facil para el usuario ententer e interactuar con widgets.
+Se puede acceder a los recursos del dispositivo movil.
+Un widget puede almacenar en cache cierta informacion para reducir la necesidad de llamadas Ajax para traer dicha informacion.
+Se puede construir buenas interfaces de usuario y animaciones.
+Todo esto se desarrolla mediante el uso de HTML5, CSS3 y librerias Javascript.
+
+
+
+Hoy en dia los ultimos navegadores moviles estan mas cercanos a sus similares de escritorio. Pueden mostrar paginas web estandar a escala, permite al usuario realizar zoom sobre ella, cambia la forma de mostrar la pagina al momento de rotar ciertos dispositivos y tiene soporte para las ultimas tecnologias Web como CSS3, HTML5, AJAX, y su implementacion es basada en la plataforma estandar WebKit. Pero aun sigue siendo dificultoso el uso de ellos, sobretodo en temas de navegacion. El navegador ocupa mas recursos de bateria, su ejecucion es mas lenta, y simplemente no puede realizar lo que una aplicacion nativa.
+
+Aunque los navegadores ya se esten basando en estandares, aun se debe tener en cuenta una cierta adaptacion de la aplicacion movil en el lado del servidor. Se pueden tener variaciones en tamaños de pantalla, metodos de entrada (interfaz) y velocidades de red, que pueden ser resueltas mediante metodos de adaptacion en el servidor. Algunas formas de implementar esto es mediante el uso de WURFL, que es un estandar para la deteccion e informacion de dispositivos moviles.
+
+
+Occasionally Connected Computing
+Occasionally Connected Computing (OCC) is a term coined by Adobe while
+referring to some of the Rich Internet Applications (RIA). These applications could
+cache data to the client and function even when the Internet connection was not
+present. We use the term in the same manner for mobile applications. OCC refers to
+the kind of software architecture where an application can continue functioning with
+or without a live Internet connection.
+OCC requires a different way of thinking about software architecture. But the ability
+to run an application without a live connection has tremendous impact on the future
+of the mobile web. Network connectivity is costly, and users don't like to pay for
+each byte they download. With the advent of multiple networks, a user might want
+to do heavy uploads and downloads in a WiFi zone, and only minimal transactions
+when on GPRS. If our application could provide this flexibility, there are good
+chances it will be grabbed like sweet candy by the users.
+So how can we achieve OCC on mobile devices? While some amount of caching has
+always been part of mobile applications, OCC is a new thing for the mobile web.
+As such, OCC is new even for web applications! The OCC poster-boy solution is
+Google Gears (http://code.google.com/apis/gears/)—a browser extension that
+provides an API to run applications offline, complete with a caching server, an offline
+SQL database, and an asynchronous worker pool that lets you do the heavy lifting in
+the background. Google Gears is certainly an innovation whose time has come.
+
+
+-------
+
+

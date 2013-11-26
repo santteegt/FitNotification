@@ -1,0 +1,4 @@
+#server ip
+notification.server=192.168.4.150
+#server port
+notification.port=4321

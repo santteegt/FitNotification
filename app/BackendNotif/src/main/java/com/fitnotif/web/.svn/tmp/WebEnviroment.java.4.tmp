@@ -1,0 +1,211 @@
+package com.fitnotif.web;
+
+import com.fitnotif.notification.Request;
+import com.fitnotif.webpages.NotifWebPage;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import net.sourceforge.wurfl.core.WURFLHolder;
+
+/**
+ * Propiedades de la sesion del servlet
+ * @author santiago
+ * @version 1.0
+ */
+public final class WebEnviroment {
+    
+    // PROPIEDADES Y METODOS DE LA INSTANCIA
+    private final HttpSession session;    
+    
+    private final ServletContext context;    
+    
+
+    //private final String idContexto;
+
+    //private int secuencia = -1;
+
+    private WebEnviroment(HttpServletRequest req) {
+        if(req.getSession().getAttribute(SESSION_DATA) == null){
+            this.session = req.getSession(true);
+        }else{
+            this.session = req.getSession();
+        }
+        this.context = req.getServletContext();        
+        /*
+        if (req.getParameterMap().containsKey("_contexto")) {
+            this.idContexto = req.getParameter("_contexto");
+        } else {
+            this.idContexto = "default";
+        }*/
+    }
+
+    // PROPIEDADES Y METODOS ESTATICOS
+    private static final String SESSION_DATA = "SESSION_DATA";
+    
+    private static final String WURFL_HOLDER = "WURFL_HOLDER";
+
+    private static final ThreadLocal<WebEnviroment> entornoWeb = new ThreadLocal<WebEnviroment>() {
+
+        @Override
+        protected WebEnviroment initialValue() {
+            return null;
+        }
+    };
+
+    public static final String URI_INGRESO = "index.html";
+
+    public static final String URI_CLAVE = "nupass.html";
+
+    public static final String URI_ENTORNO = "entorno.html";
+    
+    public static final String URI_DEVICES = "entorno.html#opciones";
+    
+    public static final String URI_AUTHORIZATION = "entorno.html#consolidado";
+
+    public static void init(HttpServletRequest req) {
+        entornoWeb.set(new WebEnviroment(req));
+
+        // Reinicializar en caso de un pedido de ingreso
+        /*
+        String pathInfo = StringUtils.trimToEmpty(req.getPathInfo());
+        String names = "/" + GeneralRequestTypes.NAMES;
+        if (pathInfo.equalsIgnoreCase(names) && req.getParameter("_reset") != null) {
+            setDatosSesion(null);
+        }*/
+    }
+
+    public static HttpSession getSession() {
+        return entornoWeb.get().session;
+    }
+    
+    public static ServletContext getServletContext(){
+        return entornoWeb.get().context;
+    }
+
+    /*public static void setSecuencia(int secuencia) {
+        entornoWeb.get().secuencia = secuencia;
+    }*/
+
+    public static void setSessionData(SessionData data) {
+        getSession().setAttribute(SESSION_DATA, data);
+    }
+
+    public static SessionData getSessionData() {
+        if (getSession().getAttribute(SESSION_DATA) == null) {            
+            setSessionData(new SessionData());            
+        }
+
+        return (SessionData) getSession().getAttribute(SESSION_DATA);
+    }
+    
+    public static void killSession(){
+        getSession().removeAttribute(SESSION_DATA);
+    }
+    
+    public static Boolean isSessionAvailable(){
+        return getSession().getAttribute(SESSION_DATA) != null ? true:false;
+    }
+    
+    /**
+     * Obtiene el Holder de WURFL que posee informacion de dispositivos
+     * @return
+     * @throws Exception 
+     */
+    public static WURFLHolder getWURFLHolder()throws Exception{        
+        if(getSessionData().getWurflHolder() == null){
+            getSessionData().setWurflHolder((WURFLHolder) getServletContext()
+                .getAttribute("net.sourceforge.wurfl.core.WURFLHolder"));
+        }       
+        return getSessionData().getWurflHolder();
+    }
+
+    /*public static int getSecuencia() {
+        return entornoWeb.get().secuencia;
+    }*/
+
+    public static void setTransportData(Request transport) {
+        getSessionData().setTransportData(transport);
+    }
+
+    public synchronized static Request getTransportData() {
+        return getSessionData().getTransportData();
+    }
+    
+    public static NotifWebPage getWebPage(){
+        return getSessionData().getWebpage();
+    }
+    
+    public static void setWebPage(NotifWebPage webPage){
+        getSessionData().setWebpage(webPage);
+    }
+    
+    public static String getAuthToken(){
+        return getSessionData().getTokenId();
+    }
+    
+    public static void setAuthToken(String token){
+        getSessionData().setTokenId(token);
+    }
+
+    /*private static void setContexto(Contexto contexto) {
+        getDatosSesion().getContextos().put(getIdContexto(), contexto);
+    }*/
+
+    /**
+     * Obtiene el contexto para el thread actual o crea uno si es necesario.
+     *
+     * @return Contexto
+     */
+    /*public static Contexto getContexto() {
+        return getContexto(getIdContexto());
+    }*/
+
+    /**
+     * Obtiene el contexto o crea uno si es necesario.
+     *
+     * @param id String con el id del contexto a ser cargado
+     *
+     * @return Contexto
+     */
+    /*public static Contexto getContexto(String id) {
+        Contexto contexto = getDatosSesion().getContextos().get(id);
+
+        if (contexto == null) {
+            Debug.debug("Creando contexto " + id);
+            contexto = new Contexto();
+            setContexto(contexto);
+            contexto.setPaginacion(new Paginacion());
+            contexto.setTransporteDBBase(Clonador.clonar(getTransporteDBBase()));
+            contexto.getTransporteDBBase().clean();
+            contexto.getTransporteDBBase().cleanResponse();
+        }
+
+        return contexto;
+    }
+
+    public static void resetContextos() {
+        Debug.debug("Limpiando contextos");
+        getDatosSesion().getContextos().clear();
+    }
+
+    public static void cambiarCompania(String compania) {
+        for (Contexto contexto : getDatosSesion().getContextos().values()) {
+            contexto.getTransporteDBBase().setCompany(compania);
+        }
+        getTransporteDBBase().setCompany(compania);
+    }
+
+    public static String getIdContexto() {
+        return entornoWeb.get().idContexto;
+    }*/
+
+    public static String getSessionId() {
+        return entornoWeb.get().session.getId();
+    }
+/*
+    public static boolean existeUsuario() {
+        return StringUtils.isNotBlank(getDatosSesion().getTransporteDBBase().getUser());
+    }*/
+
+    
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html> 
+<!-- include("Ingresar"); -->
+<html> 
+<head> 
+	<!-- <title>FitNotification-Mobile</title> -->	
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+
+	<link rel="stylesheet" href="css/jquery.mobile-1.0.min.css" />
+	<link rel="stylesheet" href="css/custom.css" />
+	<script type="text/javascript" src="javascript/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="javascript/jquery.mobile-1.0.min.js"></script>
+        <!-- <script type="text/javascript" src="javascript/include.js?Ingresar"></script> -->
+</head> 
+
+<body> 
+	<div data-role="page" id="login" data-title="FitNotification-Mobile"> 
+		<div data-role="header" class="barra">
+						
+			<img src="css/images/fitlogo.png"/>
+			<span >FitNotification</span>			
+			
+		</div>
+		<div data-role="content">
+                    <div class="barra" id="titulo">Bienvenido</div>
+                    <form method="POST" action="http://192.168.4.112:8084/Notifmobile/proc/" autocomplete="off">
+                        <div data-role="fieldcontain">
+                            <label for="username">Usuario</label>
+                            <input name="username" id="username" placeholder="Usuario" value=""/>
+                            <label for="password">Contrase&ntilde;a</label>
+                            <input type="password" name="password" id="password" placeholder="Password" value="" />                            
+                        </div>
+                        <div class="barra" >
+                            <button type="submit" data-role="button" data-inline="true">Ingresar</button>
+                        </div>    
+                    </form>
+		</div> 
+		<div data-role="footer" data-position="fixed">
+                    <span>">Bantec</span>
+		</div> 
+	</div>
+
+</body>
+</html>

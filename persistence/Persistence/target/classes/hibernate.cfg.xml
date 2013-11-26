@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <!-- Database connection settings -->
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="connection.url">jdbc:mysql://localhost:3306/TESIS</property>
+    <property name="connection.username">root</property>
+    <property name="connection.password">130589</property>
+    <!-- JDBC connection pool (use the built-in) -->
+    <property name="connection.pool_size">1</property>
+    <!-- SQL dialect -->
+    <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+    <!-- Enable Hibernate's automatic session context management -->
+    <property name="current_session_context_class">thread</property>
+    <!-- Disable the second-level cache  -->
+    <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+    <!-- Echo all executed SQL to stdout -->
+    <property name="show_sql">true</property>
+    <!-- Drop and re-create the database schema on startup -->
+    <property name="hbm2ddl.auto">update</property>
+    <mapping class="com.fitnotif.persistence.tablas.TAutorizaciones"/>
+    <mapping class="com.fitnotif.persistence.tablas.TEstatusAutorizaciones"/>
+    <mapping class="com.fitnotif.persistence.tablas.TLogAutorizacion"/>
+    <mapping class="com.fitnotif.persistence.tablas.TParametrosSistema"/>
+    <mapping class="com.fitnotif.persistence.tablas.TRoles"/>
+    <mapping class="com.fitnotif.persistence.tablas.TTipoAutorizaciones"/>
+    <mapping class="com.fitnotif.persistence.tablas.TTipoUsuarios"/>
+    <mapping class="com.fitnotif.persistence.tablas.TTokens"/>
+    <mapping class="com.fitnotif.persistence.tablas.TUsuarioDispositivos"/>
+    <mapping class="com.fitnotif.persistence.tablas.TUsuarioInformacionAdicional"/>
+    <mapping class="com.fitnotif.persistence.tablas.TUsuarioPassword"/>
+    <mapping class="com.fitnotif.persistence.tablas.TUsuarios"/>
+    <mapping class="com.fitnotif.persistence.tablas.TSesiones"/>
+  </session-factory>
+</hibernate-configuration>

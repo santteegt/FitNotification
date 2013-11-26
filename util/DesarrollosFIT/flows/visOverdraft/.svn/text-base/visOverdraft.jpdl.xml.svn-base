@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="visOverdraft" xmlns="http://jbpm.org/4.0/jpdl">
+<start g="84,17,48,48" name="start1">
+      <transition to="Recomendacion"/>
+   </start>
+   <state g="102,405,92,52" name="APROBADA">
+      <transition g="-45,-20" name="END" to="end1"/>
+   </state> <sub-process g="47,72,120,52" name="Recomendacion" sub-process-key="comAuthorization">
+      <parameter-in subvar="detail" var="detail"/>
+      <parameter-in subvar="origin" var="detail"/>
+      <parameter-in expr="5" subvar="ruleFilter"/> 
+      <parameter-in expr="first" subvar="ruleGroup"/>
+      <parameter-in expr="30 minutes" subvar="timeAuth"/> 
+      <parameter-in expr="com.fitbank.bpm.query.mail.HiredOverdraftAuthorizationMail" subvar="message"/>       
+      <parameter-out subvar="detail" var="detail1"/>
+      <transition to="exclusive1"/>
+   </sub-process> <sub-process g="228,216,120,52" name="Aprobacion" sub-process-key="comAuthorization">
+      <parameter-in subvar="detail" var="detail"/>
+      <parameter-in expr="#{(det==null)?detail:det}" subvar="origin"/>
+      <parameter-in expr="5" subvar="ruleFilter"/> 
+      <parameter-in expr="second" subvar="ruleGroup"/>
+      <parameter-in expr="30 minutes" subvar="timeAuth"/> 
+      <parameter-in expr="com.fitbank.bpm.query.mail.HiredOverdraftAuthorizationMail" subvar="message"/>       
+      <parameter-out subvar="detail" var="detail2"/>
+      <transition to="exclusive3"/>
+   </sub-process>
+   <decision expr="#{detail1.fRESPONSE.value}" g="264,72,48,48" name="exclusive1">
+      <transition g="433,96:-112,6" name="NO" to="NegarSolicitud"/>
+      <transition g="-21,-20" name="OK" to="Evaluar Reglas"/>
+   </decision>
+   <decision expr="#{detail2.fRESPONSE.value}" g="264,324,48,48" name="exclusive3">
+      <transition g="-23,-20" name="NO" to="NegarSolicitud"/>
+      <transition g="25,-18" name="OK" to="Crear Sobregiro"/>
+   </decision>
+    <java class="com.fitbank.bpm.common.RuleTrigger" g="216,144,145,52" method="executeRule" name="Evaluar Reglas" var="detail">  
+     <arg><object expr="#{detail}"/></arg>
+     <arg><object expr="5"/></arg>
+      <transition g="107,170:" to="exclusive2"/>      
+   </java>
+   <java class="com.fitbank.bpm.common.ExecuteOriginTransaction" g="48,324,117,52" method="execute" name="Crear Sobregiro" var="detail">
+      <arg><object expr="#{det}"/></arg>
+      <arg><object expr="#{detail}"/></arg>
+      <transition to="exclusive6"/>
+   </java>
+   <java class="com.fitbank.bpm.common.FieldFiller" g="372,324,121,49" method="execute" name="NegarSolicitud" var="detail">
+     <arg><object expr="#{detail}"/></arg>
+     <arg><object expr="_BPMEND"/></arg>   
+     <arg><object expr="1"/></arg>
+      <transition to="NEGADA"/>
+   </java>
+   <state g="540,324,92,52" name="NEGADA">
+      <transition g="-31,-6" name="END" to="end1"/>
+   </state>
+   <end g="564,408,48,48" name="end1"/>
+   <decision expr="#{(detail.f_RECOM.value=='X')?'RECOMENDAR':'APROBAR'}" g="84,216,48,48" name="exclusive2">
+      <transition g="-57,-20" name="APROBAR" to="Crear Sobregiro"/>
+      <transition g="-40,6" name="RECOMENDAR" to="Aprobacion"/>
+   </decision>
+    <decision expr="#{(detail.f_BPMEND.value=='1')?'OK':'NO'}" g="-2,408,48,48" name="exclusive6">
+      <transition g="4,-21" name="OK" to="APROBADA"/>
+      <transition g="22,105:9,-15" name="NO" to="Recomendacion"/>
+   </decision>   
+</process>
